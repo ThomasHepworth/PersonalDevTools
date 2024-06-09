@@ -26,19 +26,13 @@ Below are a series of useful resources for software development, data engineerin
 - [Awesome Data Engineering](https://github.com/igorbarinov/awesome-data-engineering) - A curated list of awesome data engineering tools, frameworks, and readings.
 - [Data Engineer Handbook](https://github.com/DataExpert-io/data-engineer-handbook) - Comprehensive resource for starting out in data engineering.
 
-<hr>
-
 ## Python Resources
 
 :snake: [mCoding's Sample Code](https://github.com/mCodingLLC/VideosSampleCode) - Source code examples used in mCoding's educational YouTube videos on Python programming.
 
-<hr>
-
 ## Docker Resources
 
 :whale: [Awesome Docker](https://github.com/veggiemonk/awesome-docker) - A curated list of Docker resources and projects, perfect for both beginners and seasoned users.
-
-<hr>
 
 ## Terminal Resources
 
