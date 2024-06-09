@@ -1,0 +1,67 @@
+# General #
+###########
+*.log
+*.tmp
+*.bak
+
+# Editor backups and configuration #
+####################################
+*~
+*.swp
+*.swo
+.vscode/             # Visual Studio Code workspace files
+.idea/               # JetBrains IDE workspace files
+*.sublime-workspace  # Sublime Text workspace files
+
+# Python virtual environments #
+###############################
+venv/
+*.pyc
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git-lfs is used for versioning large files; do not track them directly
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup & Others #
+###################
+*.bak
+*.tmp
+*.accdb
+*.lnk
+*.xlsx
+*.pptx
+*.docx
