@@ -18,8 +18,6 @@ Below are a series of useful resources for software development, data engineerin
 - [Git Branching Naming Convention](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716) - A detailed guide to naming branch conventions in Git.
 - [A Successful Git Branching Model](https://nvie.com/posts/a-successful-git-branching-model/) - An exploration of a successful branching model for managing larger projects.
 
-<hr>
-
 ## Data Engineering Resources
 
 - [Data Engineering Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp) - Free self-paced course to learn Data Engineering.
