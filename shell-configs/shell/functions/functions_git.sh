@@ -65,17 +65,6 @@ function setup_git_worktree() {
     echo "Repository setup complete."
 }
 
-function git_url() {
-    local ssh_url=$(git remote get-url origin)
-    # Check if the URL is an SSH URL
-    if [[ $ssh_url == git@* ]]; then
-        # Convert the SSH URL to an HTTPS URL
-        local https_url=$(echo "$ssh_url" | sed -e 's/git@/https:\/\//' -e 's/:/\//' -e 's/\.git$//')
-    else
-        https_url=$ssh_url
-    fi
-}
-
 function get_git_url() {
     local open_url=false
 
