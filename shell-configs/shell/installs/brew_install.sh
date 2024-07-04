@@ -14,9 +14,6 @@ brew update
 # List of packages to install or update
 packages=(
     fzf              # Fuzzy find files
-    gawk             # GNU awk
-    grep             # GNU grep
-    gnu-sed          # GNU sed
     coreutils        # GNU Core Utilities
     dust             # Disk usage viewer
     btop             # Resource monitor

@@ -6,7 +6,18 @@ alias gc='git checkout'
 alias gp='git push'
 alias gm='git merge'
 alias gpl='git pull'
-alias gca='git add . && git commit --amend'
-alias dotcommit="git add . && git commit -m '.'"
+alias gca='git commit --amend'
 alias gol5='git log --oneline -n 5'
 alias grh='git reset --hard'
+alias pr='git pull --rebase'
+alias gbr='git branch'
+alias gcm='git commit -m'
+alias gds'git diff --stat'
+
+# Git worktrees
+alias gwt='git worktree'
+alias gwtl='git worktree list'
+alias gwtp='git worktree prune'
+alias gwta='git worktree add'
+alias gwtam='function _gwtam() { git worktree add "$1" main; }; _gwtam'
+

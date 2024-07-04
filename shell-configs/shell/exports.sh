@@ -1,6 +1,6 @@
-# export HOMEBREW_PREFIX=
 export SHELL_HOME="$HOME/shell"
 export MANPATH="/usr/local/man:$MANPATH"
+export HOMEBREW_PREFIX=$(brew --prefix)/
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
