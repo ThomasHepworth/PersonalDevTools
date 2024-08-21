@@ -12,7 +12,8 @@ alias grh='git reset --hard'
 alias pr='git pull --rebase'
 alias gbr='git branch'
 alias gcm='git commit -m'
-alias gds'git diff --stat'
+alias gds='git diff --stat'
+alias amend_add='git commit --amend --no-edit'
 
 # Git worktrees
 alias gwt='git worktree'

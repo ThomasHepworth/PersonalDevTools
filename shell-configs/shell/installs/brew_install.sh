@@ -24,6 +24,7 @@ packages=(
     glow             # Render markdown files on the terminal
     uv               # A pip replacement
     atuin            # A database of terminal commands
+    navi             # An interactive cheatsheet tool for the command-line
 )
 
 # Install or update each package

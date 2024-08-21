@@ -1,2 +1,6 @@
 alias cr='cargo run'
 alias ct='cargo test'
+alias cac='cargo add clippy'
+alias cc='cargo clippy'
+alias cb='cargo build'
+alias cbr='cargo build --release'

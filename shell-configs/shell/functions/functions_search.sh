@@ -101,3 +101,21 @@ function search_files() {
 
     eval $find_command
 }
+
+
+function grep_exclude() {
+    # Define the folders to exclude
+    local exclude_dirs=("venv" ".git" "node_modules" "build" "dist" "__pycache__")
+
+    # Create the find command to exclude these directories
+    local find_command="find ."
+    for dir in "${exclude_dirs[@]}"; do
+        find_command+=" -path \"*/$dir/*\" -prune -o"
+    done
+    # Specifically exclude any directory with 'venv' in its name
+    find_command+=" -name '*venv*' -prune -o"
+    find_command+=" -type f -print"
+
+    # Use the find command with grep
+    eval "$find_command" | xargs grep --color=auto -n "$@"
+}
