@@ -1,6 +1,7 @@
 # Bash aliases
 alias ls='lsd'
 alias c='clear'
+alias e='exit'
 alias o="open ."
 alias lsdot="ls -ld .?*"
 # confirm before overwriting something
