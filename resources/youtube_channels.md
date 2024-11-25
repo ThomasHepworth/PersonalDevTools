@@ -22,6 +22,8 @@ Educational resources focusing on Python programming, covering everything from b
 | [**ArjanCodes**](https://www.youtube.com/@ArjanCodes) | Specializes in design patterns and coding advice tailored for Python. |
 | [**mCoding**](https://www.youtube.com/@mCoding) | Covers general Python programming concepts and tutorials. |
 | [**anthonywritescode**](https://www.youtube.com/@anthonywritescode) | Offers great videos on intermediate and expert Python topics. |
+| [**JohnWatsonRooney**](https://www.youtube.com/@JohnWatsonRooney) | Extensive archive of videos on webscraping |
+
 
 ### Data Engineering
 
