@@ -1,5 +1,3 @@
-cd $HOME
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -8,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Run scripts defined in ~/shell directory
-for file in shell/*.sh; do
+for file in $HOME/shell/*.sh; do
     if [ -f "$file" ]; then
         source "$file"
     fi
@@ -34,7 +32,7 @@ source $HOMEBREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOMEBREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-source .config/plugins/fzf-tab/fzf-tab.plugin.zsh
+source $HOME/.config/plugins/fzf-tab/fzf-tab.plugin.zsh
 
 # Keybindings
 bindkey '^I' fzf_completion
