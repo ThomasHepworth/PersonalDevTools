@@ -119,3 +119,8 @@ function grep_exclude() {
     # Use the find command with grep
     eval "$find_command" | xargs grep --color=auto -n "$@"
 }
+
+function open_finder() {
+    local target="${1:-.}"
+    open -R "$target"
+}

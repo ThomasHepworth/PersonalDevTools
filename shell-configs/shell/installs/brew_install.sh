@@ -37,6 +37,7 @@ packages=(
     awscli             # The official command-line interface for interacting with AWS services
     fastfetch          # A quick system information fetcher
     zsh-autosuggestions # Fish-like suggestions for Zsh commands
+    zsh-you-should-use # ZSH plugin that reminds you to use existing aliases for commands you just typed
     zsh-syntax-highlighting # Syntax highlighting for Zsh commands
     zoxide             # A smarter 'cd' command for faster navigation
     python@3.9         # Python 3.9 programming language interpreter
