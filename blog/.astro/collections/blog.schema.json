@@ -63,6 +63,9 @@
         "draft": {
           "type": "boolean"
         },
+        "postCategory": {
+          "type": "string",
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -94,7 +97,8 @@
       "required": [
         "pubDatetime",
         "title",
-        "description"
+        "description",
+        "postCategory"
       ],
       "additionalProperties": false
     }
