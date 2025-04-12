@@ -8,6 +8,7 @@ import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import Pagination from "@/components/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
+import getUniqueTags from "@/utils/getUniqueTags";
 import { SITE } from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -15,12 +16,22 @@ export const getStaticPaths = (async ({ paginate }) => {
   return paginate(getSortedPosts(posts), { pageSize: SITE.postPerPage });
 }) satisfies GetStaticPaths;
 
+const allPosts = await getCollection("blog");
+const tags = getUniqueTags(allPosts);
+
 const { page } = Astro.props;
 ---
 
 <Layout title={`Posts | ${SITE.title}`}>
   <Header />
   <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
+    <label for="tagFilter">Filter by tag:</label>
+    <select id="tagFilter" name="tagFilter">
+      <option value="">All</option>
+      {tags.map(t =>
+        <option value={t.tag}>{t.tagName}</option>
+      )}
+    </select>
     <ul>
       {page.data.map(data => <Card {...data} />)}
     </ul>
@@ -29,4 +40,13 @@ const { page } = Astro.props;
   <Pagination {page} />
 
   <Footer noMarginTop={page.lastPage > 1} />
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector("#tagFilter")?.addEventListener("change", (event: Event) => {
+        const val = (event.target as HTMLSelectElement).value;
+        if (val) location.href = `/tags/${val}`;
+      });
+    });
+  </script>
 </Layout>
