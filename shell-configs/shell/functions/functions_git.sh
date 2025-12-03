@@ -13,85 +13,280 @@ function execute_hook_script() {
 }
 
 alias pre_conventional_commit_hook="execute_hook_script pre-receive-conventional-commits.sh"
-function setup_git_worktree() {
-    local repo_url="$1"
-    local branch_name="$2"
 
-    # Display help message if --help is passed
-    if [[ "$1" == "--help" ]]; then
-        echo "Usage: setup_git_worktree [repository_url] [branch_name]"
-        echo " - repository_url: URL of the Git repository to clone"
-        echo " - branch_name (optional): Name of the branch for the new worktree"
-        echo "If branch_name is not provided, the script will only set up the bare repository."
+# git_worktree_setup <ssh-url> [-d <anchor-dir>] [-b <branch>] [-p <worktree-path>] [-r <remote>] [--no-track]
+# Creates a bare anchor repo (default: $PWD/<repo>.git) and a first worktree for <branch>.
+function git_worktree_setup() {
+    local ssh_url anchor_dir branch worktree_path remote track
+    ssh_url="$1"; shift || true
+    anchor_dir=""        # default derived from CWD
+    branch=""            # default = remote HEAD branch
+    worktree_path=""     # default ../<repo>__<branch>
+    remote="origin"
+    track="true"
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -d|--dir)       anchor_dir="$2"; shift 2 ;;
+            -b|--branch)    branch="$2"; shift 2 ;;
+            -p|--path)      worktree_path="$2"; shift 2 ;;
+            -r|--remote)    remote="$2"; shift 2 ;;
+            --no-track)     track="false"; shift ;;
+            -h|--help)
+                cat <<'H'
+Usage: git_worktree_setup <ssh-url> [-d <anchor-dir>] [-b <branch>] [-p <worktree-path>] [-r <remote>] [--no-track]
+Creates a bare anchor repo at <anchor-dir> (default: $PWD/<repo>.git) and a first worktree for <branch>.
+H
+                return 0 ;;
+            *) echo "Unknown arg: $1" >&2; return 2 ;;
+        esac
+    done
+
+    if [[ -z "$ssh_url" ]]; then
+        echo "Error: SSH URL required (e.g. git@github.com:org/repo.git)" >&2
+        return 2
+    fi
+    if ! command -v git >/dev/null 2>&1; then
+        echo "Error: git not found" >&2
+        return 2
+    fi
+
+    local name parent
+    name="$(basename "${ssh_url%.git}")"
+
+    # Default: put the anchor in the current working directory
+    anchor_dir="${anchor_dir:-$PWD/${name}.git}"
+
+    # Clone or refresh anchor
+    if [[ -d "$anchor_dir" ]]; then
+        echo "Anchor already exists: $anchor_dir"
+        git --git-dir="$anchor_dir" rev-parse --is-bare-repository >/dev/null 2>&1 || {
+            echo "Error: $anchor_dir exists but is not a bare repo." >&2
+            return 2
+        }
+        git --git-dir="$anchor_dir" remote set-url "$remote" "$ssh_url" 2>/dev/null || true
+        git --git-dir="$anchor_dir" fetch "$remote" --prune || true
+    else
+        mkdir -p "$(dirname "$anchor_dir")" || {
+            echo "Error: cannot create parent directory for $anchor_dir" >&2
+            return 2
+        }
+        echo "+ git clone --bare \"$ssh_url\" \"$anchor_dir\""
+        git clone --bare --origin "$remote" "$ssh_url" "$anchor_dir" || return 2
+    fi
+
+    git --git-dir="$anchor_dir" config worktree.guessRemote true >/dev/null 2>&1 || true
+
+    # Determine default branch if not provided
+    if [[ -z "$branch" ]]; then
+        branch="$(git --git-dir="$anchor_dir" symbolic-ref --quiet --short "refs/remotes/${remote}/HEAD" 2>/dev/null | sed "s#${remote}/##")"
+        branch="${branch:-main}"
+    fi
+
+    # Default worktree: sibling of anchor (../<repo>__<branch>)
+    parent="$(dirname "$anchor_dir")"
+    worktree_path="${worktree_path:-${parent}/${name}__${branch//\//_}}"
+
+    if [[ -d "$worktree_path/.git" || -f "$worktree_path/.git" ]]; then
+        echo "Worktree already exists at: $worktree_path"
+        (cd "$worktree_path" && git status -sb) || true
         return 0
     fi
+    mkdir -p "$(dirname "$worktree_path")" || {
+        echo "Error: cannot create parent directory for $worktree_path" >&2
+        return 2
+    }
 
-    # Extract repository name from the URL and add .git
-    local bare_repo_dir="./$(basename "$repo_url" .git).git"
-
-    # Check if the repo already exists
-    if [[ -d "$bare_repo_dir" ]]; then
-        echo "Repository already exists: '$bare_repo_dir'"
-        return 1
-    fi
-
-    # Clone the repository as a bare repository - bare_repo_dir isn't really necessary atm
-    git clone --bare "$repo_url" "$bare_repo_dir"
-    if [ $? -ne 0 ]; then
-        echo "Failed to clone the repository. Please check the URL and try again."
-        return 1
-    fi
-
-    echo "----------------------------------------"
-    echo "Bare repository created at: $bare_repo_dir"
-
-    if [ -n "$branch_name" ]; then
-        # Check if the branch exists on the remote
-        if ! git --git-dir="$bare_repo_dir" ls-remote --exit-code --heads origin "$branch_name" &> /dev/null; then
-            echo "Branch '$branch_name' does not exist on the remote. Please check the branch name and try again."
-            return 1
+    # Ensure local branch exists in anchor
+    if ! git --git-dir="$anchor_dir" show-ref --verify --quiet "refs/heads/${branch}"; then
+        git --git-dir="$anchor_dir" fetch "$remote" --prune || true
+        if git --git-dir="$anchor_dir" show-ref --quiet "refs/remotes/${remote}/${branch}"; then
+            git --git-dir="$anchor_dir" branch "$branch" "${remote}/${branch}" || return 2
+        else
+            local head_ref
+            head_ref="$(git --git-dir="$anchor_dir" rev-parse "${remote}/HEAD" 2>/dev/null)"
+            if [[ -n "$head_ref" ]]; then
+                git --git-dir="$anchor_dir" branch "$branch" "$head_ref" || return 2
+            else
+                echo "Error: cannot determine start point for '$branch'." >&2
+                return 2
+            fi
         fi
-        cd $bare_repo_dir
-        git worktree add "$branch_name"
-        if [ $? -ne 0 ]; then
-            echo "Failed to add worktree for branch '$branch_name'. Please check the error message above."
-            return 1
+        if [[ "$track" == "true" ]]; then
+            git --git-dir="$anchor_dir" branch --set-upstream-to "${remote}/${branch}" "$branch" >/dev/null 2>&1 || true
         fi
-        echo "----------------------------------------"
-        echo "Worktree added for branch $branch_name at $worktree_dir"
     fi
 
-    echo "----------------------------------------"
-    echo "Repository setup complete."
+    echo "+ git --git-dir=\"$anchor_dir\" worktree add \"$worktree_path\" \"$branch\""
+    git --git-dir="$anchor_dir" worktree add "$worktree_path" "$branch" || return 2
+
+    echo "✔ Anchor:   $anchor_dir"
+    echo "✔ Worktree: $worktree_path  (branch: $branch)"
+    echo "  Next: cd \"$worktree_path\""
 }
+
+
+# git_worktree_spawn <branch> [-s <start-point>] [-p <worktree-path>] [-a <anchor-dir>] [-r <remote>] [--no-track] [--force]
+# From inside a worktree *or* inside the bare anchor, create another worktree in ../<repo>__<branch>.
+function git_worktree_spawn() {
+    local branch start_point worktree_path anchor_dir remote track force
+    branch="$1"; shift || true
+    start_point=""
+    worktree_path=""
+    anchor_dir=""
+    remote="origin"
+    track="true"
+    force="false"
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -s|--start-point) start_point="$2"; shift 2 ;;
+            -p|--path)        worktree_path="$2"; shift 2 ;;
+            -a|--anchor)      anchor_dir="$2"; shift 2 ;;
+            -r|--remote)      remote="$2"; shift 2 ;;
+            --no-track)       track="false"; shift ;;
+            -f|--force)       force="true"; shift ;;
+            -h|--help)
+                cat <<'H'
+Usage: git_worktree_spawn <branch> [options]
+Create a new worktree for <branch>, discovering the bare anchor automatically.
+
+Options
+  -s, --start-point <rev>   Start point if creating the branch (default: current @{u} or HEAD if in a worktree; otherwise remote HEAD)
+  -p, --path <dir>          Where to place the worktree (default: ../<repo>__<branch>)
+  -a, --anchor <dir>        Explicit path to the bare anchor (if not running in a worktree/anchor)
+  -r, --remote <name>       Remote to use (default: origin)
+      --no-track            Do not set upstream even if remote branch exists
+  -f, --force               Pass --force to 'git worktree add'
+H
+                return 0 ;;
+            *) echo "Unknown arg: $1" >&2; return 2 ;;
+        esac
+    done
+
+    if [[ -z "$branch" ]]; then
+        echo "Error: branch name required" >&2
+        return 2
+    fi
+    if ! command -v git >/dev/null 2>&1; then
+        echo "Error: git not found" >&2
+        return 2
+    fi
+
+    # --- discover the bare anchor ---
+    if [[ -z "$anchor_dir" ]]; then
+        if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+            # In a linked worktree: common-dir points to the anchor
+            anchor_dir="$(git rev-parse --git-common-dir)"
+        elif git rev-parse --is-bare-repository >/dev/null 2>&1; then
+            # Inside the bare anchor
+            anchor_dir="$(git rev-parse --git-dir)"
+        fi
+    fi
+    if [[ -z "$anchor_dir" ]]; then
+        echo "Error: cannot determine anchor. Run from a worktree/anchor or pass -a <anchor.git>." >&2
+        return 2
+    fi
+    if [[ "$(git --git-dir="$anchor_dir" rev-parse --is-bare-repository 2>/dev/null)" != "true" ]]; then
+        echo "Error: '$anchor_dir' is not a bare repo (anchor)." >&2
+        return 2
+    fi
+
+    git --git-dir="$anchor_dir" config worktree.guessRemote true >/dev/null 2>&1 || true
+
+    # --- name bits and default path ---
+    local repo parent
+    repo="$(basename "${anchor_dir%.git}")"
+
+    if [[ -z "$worktree_path" ]]; then
+        # Default parent is one level up from where we are now; if that fails, use the anchor's parent.
+        parent="$(cd .. 2>/dev/null && pwd)"
+        parent="${parent:-$(dirname "$anchor_dir")}"
+        worktree_path="${parent}/${repo}__${branch//\//_}"
+    fi
+
+    # --- ensure the branch exists in the anchor, else create it ---
+    if ! git --git-dir="$anchor_dir" show-ref --verify --quiet "refs/heads/${branch}"; then
+        if [[ -z "$start_point" ]]; then
+            if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+                # Prefer upstream of current branch; else current HEAD
+                start_point="$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || true)"
+                start_point="${start_point:-$(git rev-parse HEAD)}"
+            else
+                # From the anchor: prefer remote/<branch>, else remote HEAD, else main
+                if git --git-dir="$anchor_dir" show-ref --quiet "refs/remotes/${remote}/${branch}"; then
+                    start_point="${remote}/${branch}"
+                else
+                    local def
+                    def="$(git --git-dir="$anchor_dir" symbolic-ref --quiet --short "refs/remotes/${remote}/HEAD" 2>/dev/null | sed "s#${remote}/##")"
+                    start_point="${remote}/${def:-main}"
+                fi
+            fi
+        fi
+        echo "+ git --git-dir=\"$anchor_dir\" branch \"$branch\" \"$start_point\""
+        git --git-dir="$anchor_dir" branch "$branch" "$start_point" || return 2
+
+        if [[ "$track" == "true" ]] && git --git-dir="$anchor_dir" show-ref --quiet "refs/remotes/${remote}/${branch}"; then
+            git --git-dir="$anchor_dir" branch --set-upstream-to "${remote}/${branch}" "$branch" >/dev/null 2>&1 || true
+        fi
+    fi
+
+    # --- add the worktree ---
+    mkdir -p "$(dirname "$worktree_path")" || {
+        echo "Error: cannot create parent directory for $worktree_path" >&2
+        return 2
+    }
+
+    echo "+ git --git-dir=\"$anchor_dir\" worktree add ${force:+--force }\"$worktree_path\" \"$branch\""
+    if [[ "$force" == "true" ]]; then
+        git --git-dir="$anchor_dir" worktree add --force "$worktree_path" "$branch" || return 2
+    else
+        git --git-dir="$anchor_dir" worktree add "$worktree_path" "$branch" || return 2
+    fi
+
+    echo "✔ Anchor:   $anchor_dir"
+    echo "✔ Worktree: $worktree_path  (branch: $branch)"
+    echo "  Next: cd \"$worktree_path\""
+}
+
 
 function get_git_url() {
     local open_url=false
 
     if [[ "$1" == "-o" || "$1" == "--open" ]]; then
         open_url=true
+        shift
     fi
 
-    # Get the SSH URL
-    local ssh_url=$(git remote get-url origin)
+    # Get the remote URL
+    local ssh_url
+    ssh_url=$(git remote get-url origin 2>/dev/null) || {
+        echo "Error: could not get remote URL (are you in a git repo?)" >&2
+        return 1
+    }
 
-    # Check if the URL is an SSH URL
+    # Convert to HTTPS if needed
+    local https_url
     if [[ $ssh_url == git@github.com:* ]]; then
-        # Convert the SSH URL to an HTTPS URL
         https_url=${ssh_url/git@github.com:/https:\/\/github.com\/}
         https_url=${https_url/.git/}
         echo "HTTPS URL: $https_url"
     else
-        https_url=$ssh_url
-        echo "The remote URL is already an HTTPS URL or not in the expected SSH format."
+        https_url=${ssh_url/.git/}
+        echo "Remote URL: $https_url"
     fi
 
-    # Open the URL in Google Chrome if the -o flag is provided
+    # Open in the system default browser
     if $open_url; then
-        if command -v open &> /dev/null; then
-            open -a "Google Chrome" "$https_url"
+        if command -v xdg-open >/dev/null 2>&1; then
+            xdg-open "$https_url" >/dev/null 2>&1 &
+        elif command -v open >/dev/null 2>&1; then
+            open "$https_url"
+        elif command -v start >/dev/null 2>&1; then
+            start "$https_url"
         else
-            echo "Could not detect the web browser to use."
+            echo "Could not detect a way to open the browser automatically." >&2
+            return 1
         fi
     fi
 }
