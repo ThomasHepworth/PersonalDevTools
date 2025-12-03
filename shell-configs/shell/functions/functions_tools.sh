@@ -26,6 +26,7 @@ function setup_vscode_settings() {
   # Desired settings (VS Code accepts JSON with comments)
   read -r -d '' desired_json <<'JSON'
 {
+{
   // === Editor ergonomics ===
   "editor.tabSize": 4,
   "editor.insertSpaces": true,
@@ -85,7 +86,23 @@ function setup_vscode_settings() {
     },
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": true
-  }
+  },
+
+  // === Jupyter ===
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+
+  // === Python analysis ===
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}"
+  ],
+
+  // === Python testing ===
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": [
+    "-v",
+    "--capture=tee-sys"
+  ]
 }
 JSON
 
