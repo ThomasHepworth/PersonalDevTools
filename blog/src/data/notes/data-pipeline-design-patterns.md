@@ -5,7 +5,6 @@ type: link
 link: "https://www.startdataengineering.com/post/design-patterns/"
 tags:
   - data-engineering
-  - testing
   - reading
 ---
 
