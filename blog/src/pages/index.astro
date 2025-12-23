@@ -25,22 +25,6 @@ const recentPosts = sortedPosts.filter(p => !featuredIds.has(p.id));
 <Layout>
   <Header />
   <main id="main-content" data-layout="index">
-    <section id="hero" class="pt-8 pb-6">
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="scale-125 stroke-accent stroke-3"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
-
       <p>
         Welcome to my blog!
       </p>
@@ -50,7 +34,7 @@ const recentPosts = sortedPosts.filter(p => !featuredIds.has(p.id));
         with a generalist set of hobbies to round me out.
       </p>
       <p class="mt-2">
-        Expect posts on data engineering, record linkage, or whatever techy rabbit hole
+        I primarily post about data engineering, record linkage, or whatever techy rabbit hole
         I've fallen into lately. I'm also prone to talking about modern art (particularly
         the German expressionists), bouldering, and whichever book I happened to read recently.
       </p>
