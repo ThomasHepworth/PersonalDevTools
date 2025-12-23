@@ -13,11 +13,11 @@ html[data-theme="light"] {
 }
 
 html[data-theme="dark"] {
-  --background: #121212; /* Very dark gray background */
-  --foreground: #e0e0e0; /* Light gray text */
-  --accent: #888888; /* Medium gray accent */
-  --muted: #1e1e1e; /* Dark gray muted */
-  --border: #333333; /* Dark gray border */
+  --background: #0d1117; /* Deep dark blue-black (GitHub dark) */
+  --foreground: #e6edf3; /* Soft white text */
+  --accent: #bd93f9; /* Dracula purple - friendly pop of color */
+  --muted: #161b22; /* Slightly lighter dark for cards */
+  --border: #30363d; /* Subtle border */
 }
 
 @theme inline {

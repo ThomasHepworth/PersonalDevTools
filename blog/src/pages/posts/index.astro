@@ -1,44 +1,83 @@
 ---
-import { getCollection } from "astro:content";
-import Main from "@/layouts/Main.astro";
-import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import Card from "@/components/Card.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
-import { SITE } from "@/config";
+import { getCollection } from 'astro:content';
+import Layout  from '@/layouts/Layout.astro';
+import Header  from '@/components/Header.astro';
+import Footer  from '@/components/Footer.astro';
+import getPostsByGroupCondition from '@/utils/getPostsByGroupCondition';
+import { getPath } from '@/utils/getPath';
+import { SITE } from '@/config';
 
-const allPosts = await getCollection("blog", ({ data }) => !data.draft);
-const sortedPosts = getSortedPosts(allPosts);
-const categories = Array.from(
-  new Set(allPosts.map((p) => p.data.postCategory))
-).filter(Boolean).sort();
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+const months = [
+  'January','February','March','April','May','June',
+  'July','August','September','October','November','December',
+];
 ---
 
 <Layout title={`Posts | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
-    <label for="postCategoryFilter">Filter by category:</label>
-    <div class="category-filter-box">
-      <p class="stylized-text">Choose your category below</p>
-      <select id="postCategoryFilter" name="postCategoryFilter">
-        <option value="">All</option>
-        {categories.map((c) => <option value={c}>{c}</option>)}
-      </select>
+
+  <main class="mx-auto max-w-3xl px-4">
+    <h1 class="text-4xl font-extrabold mb-1">Posts</h1>
+    <p class="text-gray-500 mb-10">All the articles I’ve posted, newest first.</p>
+
+    <!-- vertical rail -->
+    <div class="relative pl-6 before:absolute before:left-2 before:inset-y-0 before:w-px before:bg-border">
+
+      {Object.entries(
+        getPostsByGroupCondition(posts, p => p.data.pubDatetime.getFullYear()),
+      )
+        .sort(([a], [b]) => +b - +a)             /* newest year first */
+        .map(([year, yearGroup]) => (
+          <section class="pb-14 border-b border-border first:pt-0 pt-6">
+
+            <h2 class="text-3xl font-bold mb-8 lg:sticky lg:-left-4 lg:pr-4">
+              {year}
+            </h2>
+
+            {Object.entries(
+              getPostsByGroupCondition(
+                yearGroup,
+                p => p.data.pubDatetime.getMonth() + 1,
+              ),
+            )
+              .sort(([a], [b]) => +b - +a)        /* newest month first */
+              .map(([month, monthGroup]) => (
+                <article class="mb-10 grid grid-cols-[8rem_1fr] gap-4">
+
+                  <!-- month label -->
+                  <h3 class="font-semibold">{months[+month - 1]}</h3>
+
+                  <!-- posts with individual dots -->
+                  <ul class="space-y-6">
+                    {monthGroup
+                      .sort(
+                        (a, b) =>
+                          +new Date(b.data.pubDatetime) -
+                          +new Date(a.data.pubDatetime),
+                      )
+                      .map(entry => (
+                        <li class="relative pl-6">
+                          <!-- dot for this post -->
+                          <span class="absolute -left-[1.625rem] top-[0.4rem] bg-accent rounded-full w-3 h-3 z-10" />
+
+                          <a
+                            href={getPath(entry.id, entry.filePath)}
+                            class="block text-lg font-medium text-accent decoration-dashed underline-offset-4 hover:underline"
+                          >
+                            {entry.data.title}
+                          </a>
+                          <p class="text-foreground/70 mt-1">{entry.data.description}</p>
+                        </li>
+                      ))}
+                  </ul>
+                </article>
+              ))}
+          </section>
+        ))}
     </div>
-    <ul>
-      {sortedPosts.map(data => <Card {...data} />)}
-    </ul>
-  </Main>
+  </main>
 
   <Footer />
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelector("#postCategoryFilter")?.addEventListener("change", (event: Event) => {
-        const val = (event.target as HTMLSelectElement).value;
-        if (val) location.href = `/categories/${val}`;
-      });
-    });
-  </script>
 </Layout>

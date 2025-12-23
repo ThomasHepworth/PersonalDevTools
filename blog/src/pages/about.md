@@ -3,34 +3,25 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-AstroPaper is a minimal, responsive and SEO-friendly Astro blog theme. I designed and crafted this based on [my personal blog](https://satnaing.dev/blog).
+## Hi, I'm Tom 👋
 
-This theme is aimed to be accessible out of the box. Light and dark mode are supported by
-default and additional color schemes can also be configured.
+I'm a data engineer based in the UK, spending my days building pipelines, wrangling distributed systems, and trying to make data behave. When I'm not convincing Spark to cooperate, you'll find me exploring the intersection of technology, art, and movement.
 
-This theme is self-documented \_ which means articles/posts in this theme can also be considered as documentations. So, see the documentation for more info.
+### What I do
 
-<div>
-  <img src="/dev.svg" class="sm:w-1/2 mx-auto" alt="coding dev illustration">
-</div>
+By day, I work on data engineering problems—ETL pipelines, data quality, and the occasional foray into analytics engineering. I'm particularly interested in developer tooling, making data systems more maintainable, and the craft of writing good code.
 
-## Tech Stack
+### Beyond the terminal
 
-This theme is written in vanilla JavaScript (+ TypeScript for type checking) and a little bit of ReactJS for some interactions. TailwindCSS is used for styling; and Markdown is used for blog contents.
+My interests are eclectic, which is probably why this blog exists:
 
-## Features
+- **📚 Books** — I'm always reading something, from technical deep-dives to fiction. Currently on a classics kick.
+- **🎨 Modern Art** — I have a soft spot for the German Expressionists—Kirchner, Nolde, and the Die Brücke movement. There's something raw and honest about that era.
+- **🧗 Bouldering** — The perfect antidote to desk work. Nothing clears the mind like focusing entirely on the next hold.
+- **💡 Learning in Public** — This blog is my way of processing ideas, documenting what I've learned, and occasionally sharing things I find interesting.
 
-Here are certain features of this site.
+### This blog
 
-- fully responsive and accessible
-- SEO-friendly
-- light & dark mode
-- fuzzy search
-- super fast performance
-- draft posts
-- pagination
-- sitemap & rss feed
-- highly customizable
+Think of this as my digital garden—part technical notebook, part creative outlet. You'll find posts on data engineering, book notes, art musings, and whatever else captures my attention. The [mini blog](/notes) is where I dump quick snippets, useful links, and half-formed thoughts.
 
-If you like this theme, you can star/contribute to the [repo](https://github.com/satnaing/astro-paper).  
-Or you can even give any feedback via my [email](mailto:contact@satnaing.dev).
+Feel free to reach out if you want to chat about data, expressionism, or beta for that overhang you're stuck on.
