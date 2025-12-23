@@ -5,8 +5,6 @@ type: quote
 source: "Oscar Wilde"
 tags:
   - art
-  - expressionism
-  - creativity
 ---
 
 I've been reading the Picture of Dorian Gray by Oscar Wilde lately and reflecting on the role of art in society:
