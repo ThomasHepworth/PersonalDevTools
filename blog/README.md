@@ -1,56 +1,75 @@
 # Tom Hepworth's Blog
 
-Personal blog covering data engineering, software engineering, design patterns, and whatever else captures my curiosity.
+This directory contains the source for my personal blog (live at https://tomhepworth.dev).
 
-**Live at:** [tomhepworth.dev](https://tomhepworth.dev)
+**Quick answers**
+- Where do my blog articles live?: `src/data/blog/` (markdown files)
+- Where do my quick notes / sparks live?: `src/data/notes/`
+- Where to change the About page?: `src/pages/about.md`
+- Where to change the main landing page?: `src/pages/index.astro`
 
 ## 🚀 Tech Stack
 
-- **Framework**: [Astro](https://astro.build/)
-- **Styling**: [TailwindCSS](https://tailwindcss.com/)
-- **Type Checking**: [TypeScript](https://www.typescriptlang.org/)
-- **Search**: [Pagefind](https://pagefind.app/)
-- **Deployment**: GitHub Pages
+- Framework: Astro
+- Styling: TailwindCSS
+- Type checking: TypeScript
+- Search: Pagefind
+- Deployment: GitHub Pages (see `.github/workflows/deploy.yml`)
 
-## 📁 Project Structure
+## 📁 Project structure (important parts)
 
 ```bash
 blog/
-├── public/           # Static assets
+├── public/                  # Static assets (images, icons, generated files)
 ├── src/
-│   ├── assets/       # Images and icons
-│   ├── components/   # Astro components
+│   ├── assets/              # Images and icons
+│   ├── components/          # Reusable Astro components
 │   ├── data/
-│   │   ├── blog/     # Blog posts (markdown)
-│   │   └── notes/    # Quick notes/sparks
-│   ├── layouts/      # Page layouts
-│   ├── pages/        # Routes
-│   ├── styles/       # Global styles
-│   └── utils/        # Utility functions
+│   │   ├── blog/            # <--- Blog posts (each post is a Markdown file)
+│   │   └── notes/           # <--- Sparks / quick notes
+│   ├── layouts/             # Page layouts
+│   ├── pages/               # Routes: index.astro, about.md, posts/, sparks/
+│   ├── styles/              # CSS / Tailwind
+│   └── utils/               # Helper scripts
 └── astro.config.ts
 ```
 
-## 🧞 Commands
+## How posts are structured
+- Each post is a Markdown file under `src/data/blog/`. Files should include frontmatter with fields such as `title`, `pubDatetime`, `tags`, `description` and optionally `featured`, `draft`, `ogImage`.
+- The content collections and validation live in `src/content.config.ts`. If you change frontmatter fields, update that file so the site builds correctly.
 
-| Command | Action |
-| :------ | :----- |
-| `pnpm install` | Install dependencies |
-| `pnpm run dev` | Start dev server at `localhost:4321` |
-| `pnpm run build` | Build for production |
-| `pnpm run preview` | Preview build locally |
-| `pnpm run format` | Format with Prettier |
-| `pnpm run lint` | Lint with ESLint |
-
-## 🐳 Docker
-
-```bash
-docker compose up -d
+Example frontmatter (minimum):
+```yaml
+---
+title: "My article title"
+pubDatetime: 2025-12-23T12:00:00Z
+tags:
+	- data-engineering
+description: "Short summary for listing and og/meta"
+---
 ```
 
-## 📜 License
+## About page and landing page
+- Edit the About page at `src/pages/about.md`. It's a simple Markdown file — update content and frontmatter there.
+- The main landing page is `src/pages/index.astro`. This controls the intro text, featured posts, and overall layout. For layout tweaks, check `src/layouts/Layout.astro`.
 
-Licensed under the MIT License.
+## Local development
+```bash
+pnpm install
+pnpm run dev
+```
 
----
+## Build & preview
+```bash
+pnpm run build
+pnpm run preview
+```
 
-Built with the [AstroPaper](https://github.com/satnaing/astro-paper) template by [Sat Naing](https://satnaing.dev).
+## Deployment
+- Deployment is handled by the GitHub Actions workflow at `.github/workflows/deploy.yml` and publishes to GitHub Pages. If you rename the default branch, double-check that workflow and GitHub Pages settings.
+
+## Contributing / checks
+- Run `pnpm run format` and `pnpm run lint` before committing. Content-only changes typically don't require changes to code.
+
+## Acknowledgements
+- Inspired by the Astro and AstroPaper projects.
