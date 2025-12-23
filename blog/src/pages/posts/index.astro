@@ -21,6 +21,12 @@ const tagIconMap = Object.fromEntries(
   POST_TAGS.map(tag => [tag.key, tag.icon])
 );
 
+// Get all tags that actually exist in posts
+const existingTags = new Set(posts.flatMap(p => p.data.tags || []));
+
+// Filter POST_TAGS to only show those with matching posts
+const availableTags = POST_TAGS.filter(tag => existingTags.has(tag.key));
+
 // Get the best icon for a post based on its tags
 function getPostIcon(tags: string[]) {
   for (const tag of tags) {
@@ -41,7 +47,7 @@ function getPostIcon(tags: string[]) {
     <div class="mb-6">
       <div class="flex flex-wrap gap-2" id="tag-filters">
         <button data-filter="all" class="filter-btn active inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent text-white text-sm">All</button>
-        {POST_TAGS.map(tag => {
+        {availableTags.map(tag => {
           const TagIcon = tag.icon;
           return (
             <button data-filter={tag.key} class="filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-sm hover:bg-accent hover:text-white transition-colors">
@@ -114,15 +120,17 @@ function getPostIcon(tags: string[]) {
         ))}
     </div>
   </main>
-  <script is:inline>
-    (() => {
+  <script>
+    function initFilters() {
       const root = document.getElementById('posts-rail');
-      if (!root) return;
-      const buttons = Array.from(document.querySelectorAll('[data-filter]'));
+      const filterContainer = document.getElementById('tag-filters');
+      if (!root || !filterContainer) return;
 
-      function applyFilter(filter) {
+      const buttons = filterContainer.querySelectorAll('button[data-filter]');
+
+      function applyFilter(filter: string) {
         // Filter individual posts
-        const items = root.querySelectorAll('li[data-tags]');
+        const items = root!.querySelectorAll('li[data-tags]');
         items.forEach(li => {
           const tags = (li.getAttribute('data-tags') || '').split(',').filter(Boolean);
           if (filter === 'all' || tags.includes(filter)) {
@@ -133,7 +141,7 @@ function getPostIcon(tags: string[]) {
         });
 
         // Hide empty month articles (grid rows with month label + posts list)
-        const articles = root.querySelectorAll('article');
+        const articles = root!.querySelectorAll('article');
         articles.forEach(article => {
           const visiblePosts = article.querySelectorAll('li[data-tags]:not([hidden])');
           if (visiblePosts.length === 0) {
@@ -144,7 +152,7 @@ function getPostIcon(tags: string[]) {
         });
 
         // Hide empty year sections
-        const sections = root.querySelectorAll('section');
+        const sections = root!.querySelectorAll('section');
         sections.forEach(section => {
           const visibleArticles = section.querySelectorAll('article:not([hidden])');
           if (visibleArticles.length === 0) {
@@ -155,13 +163,20 @@ function getPostIcon(tags: string[]) {
         });
       }
 
-      buttons.forEach(b => b.addEventListener('click', e => {
-        const f = (e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.filter) || 'all';
-        applyFilter(f);
-        buttons.forEach(btn => btn.classList.remove('bg-accent', 'text-white'));
-        e.currentTarget.classList.add('bg-accent', 'text-white');
-      }));
-    })();
+      buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLButtonElement;
+          const filter = target.dataset.filter || 'all';
+          applyFilter(filter);
+          buttons.forEach(b => b.classList.remove('bg-accent', 'text-white'));
+          target.classList.add('bg-accent', 'text-white');
+        });
+      });
+    }
+
+    // Run on initial load and on Astro page transitions
+    document.addEventListener('DOMContentLoaded', initFilters);
+    document.addEventListener('astro:page-load', initFilters);
   </script>
 
   <Footer />

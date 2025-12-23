@@ -3,86 +3,70 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
-import LinkButton from "@/components/LinkButton.astro";
-import Card from "@/components/Card.astro";
-import Hr from "@/components/Hr.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { getPath } from "@/utils/getPath";
 import { SITE } from "@/config";
-import { SOCIALS } from "@/constants";
 
 const posts = await getCollection("blog");
-
 const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-// Get recent posts, excluding any that are already shown in featured
-const featuredIds = new Set(featuredPosts.map(p => p.id));
-const recentPosts = sortedPosts.filter(p => !featuredIds.has(p.id));
+const featuredPosts = sortedPosts.filter(({ data }) => data.featured).slice(0, 3);
 ---
 
 <Layout>
   <Header />
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4" data-layout="index">
-    <section id="hero" class="pt-8 pb-6">
-      <p>
+    <!-- Compact hero -->
+    <section class="pt-12 pb-8 text-center">
+      <p class="text-foreground/80 mb-2 max-w-lg mx-auto">
         I'm Tom, a data linker (formerly a data engineer) writing about record linkage,
         software design, and whatever else catches my interest.
       </p>
-      <p class="mt-3">
-        Browse the <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/posts">posts</a>,
-        learn more <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/about">about me</a>,
-        or check out <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/sparks">Sparks</a> for quick notes and finds.
+      <p class="text-foreground/60 mb-8 max-w-lg mx-auto text-sm">
+        Browse the posts, learn more about me, or check out Sparks for quick notes and finds.
       </p>
-      {
-        // only display if at least one social link is enabled
-        SOCIALS.length > 0 && (
-          <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
-            <div class="mr-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
-            <Socials />
-          </div>
-        )
-      }
+
+      <!-- Big CTA buttons -->
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a
+          href="/posts"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border font-medium hover:bg-muted/50 transition-colors"
+        >
+          Posts
+        </a>
+        <a
+          href="/sparks"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border font-medium hover:bg-muted/50 transition-colors"
+        >
+          Sparks
+        </a>
+        <a
+          href="/about"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border font-medium hover:bg-muted/50 transition-colors"
+        >
+          About
+        </a>
+      </div>
     </section>
 
-    <Hr />
-
-    {
-      featuredPosts.length > 0 && (
-        <>
-          <section id="featured" class="pt-12 pb-6">
-            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-            <ul>
-              {featuredPosts.map(data => (
-                <Card variant="h3" {...data} />
-              ))}
-            </ul>
-          </section>
-          {recentPosts.length > 0 && <Hr />}
-        </>
-      )
-    }
-
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
-            )}
-          </ul>
-        </section>
-      )
-    }
-
-    <div class="my-8 text-center">
-      <LinkButton href="/posts/">
-        All Posts
-        <IconArrowRight class="inline-block" />
-      </LinkButton>
-    </div>
+    <!-- Featured posts (if any) -->
+    {featuredPosts.length > 0 && (
+      <section class="pt-8 pb-12">
+        <h2 class="text-lg font-semibold text-foreground/70 mb-4 text-center">Featured</h2>
+        <ul class="space-y-4">
+          {featuredPosts.map(entry => (
+            <li class="border border-border rounded-lg p-4 hover:bg-muted/30 transition-colors">
+              <a
+                href={getPath(entry.id, entry.filePath)}
+                class="block text-lg font-medium text-accent decoration-dashed underline-offset-4 hover:underline"
+              >
+                {entry.data.title}
+              </a>
+              <p class="text-foreground/70 mt-1 text-sm">{entry.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
   </main>
   <Footer />
 </Layout>

@@ -64,7 +64,7 @@
           "type": "boolean"
         },
         "postCategory": {
-          "type": "string",
+          "type": "string"
         },
         "tags": {
           "type": "array",
@@ -97,8 +97,8 @@
       "required": [
         "pubDatetime",
         "title",
-        "description",
-        "postCategory"
+        "postCategory",
+        "description"
       ],
       "additionalProperties": false
     }
