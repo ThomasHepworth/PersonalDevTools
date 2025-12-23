@@ -10,13 +10,45 @@
 *.swp
 *.swo
 .vscode/             # Visual Studio Code workspace files
-.idea/               # JetBrains IDE workspace files
-*.sublime-workspace  # Sublime Text workspace files
+
+# Astro Builds #
+################
+dist/
+.astro/
+.astro-cache/
+.astro/types/
+.vercel/
+.netlify/
+.output/
+.cache/
+blog/node_modules/*
+
+# TypeScript / Node #
+#####################
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+.eslintcache
+.turbo/
+.parcel-cache/
+.vite/
+.vitest/
+coverage/
+.nyc_output/
+.env
+.env.*
+!.env.example
 
 # Python virtual environments #
 ###############################
 venv/
 *.pyc
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Compiled source #
 ###################
@@ -65,5 +97,3 @@ Thumbs.db
 *.xlsx
 *.pptx
 *.docx
-
-**/node_modules/
