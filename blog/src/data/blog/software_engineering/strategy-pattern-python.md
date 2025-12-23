@@ -8,10 +8,10 @@ postCategory: software_engineering
 featured: false
 draft: false
 tags:
+  - software-engineering
   - deep-dive
   - python
   - design-patterns
-  - data-engineering
 description: How to use the Strategy pattern to make algorithms interchangeable, with practical Python examples for data transformation and file exports.
 ---
 

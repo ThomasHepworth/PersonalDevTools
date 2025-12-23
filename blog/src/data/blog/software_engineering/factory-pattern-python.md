@@ -8,10 +8,10 @@ postCategory: software_engineering
 featured: false
 draft: false
 tags:
+  - software-engineering
   - deep-dive
   - python
   - design-patterns
-  - data-engineering
 description: Understanding the Factory and Abstract Factory patterns in Python, with practical examples from data engineering.
 ---
 

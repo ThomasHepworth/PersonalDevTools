@@ -8,6 +8,7 @@ postCategory: software_engineering
 featured: false
 draft: false
 tags:
+  - software-engineering
   - deep-dive
   - python
   - design-patterns

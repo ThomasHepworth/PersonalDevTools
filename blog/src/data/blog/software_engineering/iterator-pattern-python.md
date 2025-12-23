@@ -8,10 +8,10 @@ postCategory: software_engineering
 featured: false
 draft: false
 tags:
+  - software-engineering
   - deep-dive
   - python
   - design-patterns
-  - data-engineering
 description: Understanding Python's iterator protocol and how to build custom iterators for efficient data processing.
 ---
 
