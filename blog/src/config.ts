@@ -3,7 +3,7 @@ export const SITE = {
   author: "Tom Hepworth",
   profile: "https://github.com/ThomasHepworth",
   desc: "Data engineering insights, German expressionism, bouldering, books, and whatever else captures my curiosity.",
-  title: "> Tom Hepworth",
+  title: "> tomhepworth",
   ogImage: "og-image.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,

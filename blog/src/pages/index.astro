@@ -8,7 +8,6 @@ import LinkButton from "@/components/LinkButton.astro";
 import Card from "@/components/Card.astro";
 import Hr from "@/components/Hr.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
-import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
@@ -24,25 +23,16 @@ const recentPosts = sortedPosts.filter(p => !featuredIds.has(p.id));
 
 <Layout>
   <Header />
-  <main id="main-content" data-layout="index">
-    <section id="hero">
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4" data-layout="index">
+    <section id="hero" class="pt-8 pb-6">
       <p>
-        Welcome to my blog!
+        I'm Tom, a data linker (formerly a data engineer) writing about record linkage,
+        software design, and whatever else catches my interest.
       </p>
-      <p class="mt-2">
-        This is where I dump my thoughts and articles on topics I'm (perhaps
-        unjustifiably) passionate about. I work as a data linker and engineer day-to-day,
-        with a generalist set of hobbies to round me out.
-      </p>
-      <p class="mt-2">
-        I primarily post about data engineering, record linkage, or whatever techy rabbit hole
-        I've fallen into lately. I'm also prone to talking about modern art (particularly
-        the German expressionists), bouldering, and whichever book I happened to read recently.
-      </p>
-      <p class="mt-2">
-        Dive into my main <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/posts">posts</a>,
+      <p class="mt-3">
+        Browse the <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/posts">posts</a>,
         learn more <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/about">about me</a>,
-        or check out <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/sparks">Sparks</a> for quick thoughts and finds.
+        or check out <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/sparks">Sparks</a> for quick notes and finds.
       </p>
       {
         // only display if at least one social link is enabled

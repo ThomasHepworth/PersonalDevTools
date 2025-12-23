@@ -3,13 +3,13 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-## Hi, I'm Tom 👋
+## Hi, I'm Tom
 
 I'm a data linker and engineer based in the UK, working for the Ministry of Justice.
 
 I previously worked on [`splink`](https://github.com/moj-analytical-services/splink), the open-source linkage library. These days I'm mostly focussed on address matching, building out [`uk_address_matcher`](https://github.com/moj-analytical-services/uk_address_matcher).
 
-I mostly post about data-y things here, but I also enjoy a good ramble about whatever I'm into from time to time 👨‍💻
+I mostly post about data-y things here, but I also enjoy a good ramble about whatever I'm into from time to time.
 
 ### Outside of work
 
@@ -20,7 +20,7 @@ Alongside the technical posts, you'll also find the odd entry on books, art, and
 - **🧗 Bouldering** - The perfect antidote to desk work, and to bad posture.
 - **💡 Learning in Public** - This blog is my way of processing ideas, documenting what I've learned, and occasionally sharing things I find interesting.
 
-I'm also trying to grow my very own avocado tree 🥑🌳. If that's successful, expect exciting updates…
+I'm also trying to grow my very own avocado tree. If that's successful, expect exciting updates...
 
 The [mini blog](/sparks) is where I dump quick snippets, useful links, and half-formed thoughts.
 
