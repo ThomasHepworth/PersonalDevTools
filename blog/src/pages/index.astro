@@ -1,0 +1,108 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Socials from "@/components/Socials.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import Card from "@/components/Card.astro";
+import Hr from "@/components/Hr.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import IconRss from "@/assets/icons/IconRss.svg";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { SITE } from "@/config";
+import { SOCIALS } from "@/constants";
+
+const posts = await getCollection("blog");
+
+const sortedPosts = getSortedPosts(posts);
+const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
+// Get recent posts, excluding any that are already shown in featured
+const featuredIds = new Set(featuredPosts.map(p => p.id));
+const recentPosts = sortedPosts.filter(p => !featuredIds.has(p.id));
+---
+
+<Layout>
+  <Header />
+  <main id="main-content" data-layout="index">
+    <section id="hero">
+      <p>
+        Welcome to my blog!
+      </p>
+      <p class="mt-2">
+        This is where I dump my thoughts and articles on topics I'm (perhaps
+        unjustifiably) passionate about. I work as a data linker and engineer day-to-day,
+        with a generalist set of hobbies to round me out.
+      </p>
+      <p class="mt-2">
+        I primarily post about data engineering, record linkage, or whatever techy rabbit hole
+        I've fallen into lately. I'm also prone to talking about modern art (particularly
+        the German expressionists), bouldering, and whichever book I happened to read recently.
+      </p>
+      <p class="mt-2">
+        Dive into my main <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/posts">posts</a>,
+        learn more <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/about">about me</a>,
+        or check out <a class="underline decoration-dashed underline-offset-4 hover:text-accent" href="/sparks">Sparks</a> for quick thoughts and finds.
+      </p>
+      {
+        // only display if at least one social link is enabled
+        SOCIALS.length > 0 && (
+          <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
+            <div class="mr-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
+            <Socials />
+          </div>
+        )
+      }
+    </section>
+
+    <Hr />
+
+    {
+      featuredPosts.length > 0 && (
+        <>
+          <section id="featured" class="pt-12 pb-6">
+            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
+            <ul>
+              {featuredPosts.map(data => (
+                <Card variant="h3" {...data} />
+              ))}
+            </ul>
+          </section>
+          {recentPosts.length > 0 && <Hr />}
+        </>
+      )
+    }
+
+    {
+      recentPosts.length > 0 && (
+        <section id="recent-posts" class="pt-12 pb-6">
+          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
+          <ul>
+            {recentPosts.map(
+              (data, index) =>
+                index < SITE.postPerIndex && <Card variant="h3" {...data} />
+            )}
+          </ul>
+        </section>
+      )
+    }
+
+    <div class="my-8 text-center">
+      <LinkButton href="/posts/">
+        All Posts
+        <IconArrowRight class="inline-block" />
+      </LinkButton>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
+      ?.dataset?.layout;
+    if (indexLayout) {
+      sessionStorage.setItem("backUrl", "/");
+    }
+  });
+</script>

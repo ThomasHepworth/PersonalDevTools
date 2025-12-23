@@ -1,0 +1,17 @@
+---
+import Hr from "./Hr.astro";
+import Socials from "./Socials.astro";
+
+export interface Props {
+  noMarginTop?: boolean;
+}
+
+const { noMarginTop = false } = Astro.props;
+---
+
+<footer class:list={["w-full", { "mt-auto": !noMarginTop }]}>
+  <Hr noPadding />
+  <div class="flex items-center justify-center py-6 sm:py-4">
+    <Socials centered />
+  </div>
+</footer>

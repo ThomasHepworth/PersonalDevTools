@@ -1,0 +1,231 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { SITE } from "@/config";
+
+// Icons for tags/themes
+import IconPython from "@/assets/icons/IconPython.svg";
+import IconOctocat from "@/assets/icons/IconOctocat.svg";
+import IconGitBranch from "@/assets/icons/IconGitBranch.svg";
+import IconDatabase from "@/assets/icons/IconDatabase.svg";
+import IconBook from "@/assets/icons/IconBook.svg";
+import IconBouldering from "@/assets/icons/IconBouldering.svg";
+import IconArt from "@/assets/icons/IconArt.svg";
+import IconQuote from "@/assets/icons/IconQuote.svg";
+import IconLink from "@/assets/icons/IconLink.svg";
+import IconLightbulb from "@/assets/icons/IconLightbulb.svg";
+import IconCode from "@/assets/icons/IconCode.svg";
+import IconHash from "@/assets/icons/IconHash.svg";
+
+const notes = await getCollection("notes", ({ data }) => !data.draft);
+
+// Sort by date, newest first
+const sortedNotes = notes.sort(
+  (a, b) => +new Date(b.data.pubDatetime) - +new Date(a.data.pubDatetime)
+);
+
+// Get all unique tags
+const allTags = [...new Set(sortedNotes.flatMap(note => note.data.tags || []))].sort();
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+  }).format(date);
+}
+
+// Tag icon mapping - maps tag names to their icons
+const tagIcons: Record<string, any> = {
+  "python": IconPython,
+  "git": IconOctocat,
+  "github": IconOctocat,
+  "tooling": IconGitBranch,
+  "data-engineering": IconDatabase,
+  "reading": IconBook,
+  "books": IconBook,
+  "bouldering": IconBouldering,
+  "climbing": IconBouldering,
+  "art": IconArt,
+  "expressionism": IconArt,
+  "creativity": IconArt,
+};
+
+// Type icon mapping
+const typeIcons: Record<string, any> = {
+  "snippet": IconCode,
+  "quote": IconQuote,
+  "link": IconLink,
+  "thought": IconLightbulb,
+  "til": IconBook,
+};
+
+// Get the best icon for a note (prefer specific tag icons, fall back to type)
+function getNoteIcon(note: typeof sortedNotes[0]) {
+  // Check tags first for a specific icon
+  for (const tag of note.data.tags || []) {
+    if (tagIcons[tag]) return tagIcons[tag];
+  }
+  // Fall back to type icon
+  return typeIcons[note.data.type] || IconHash;
+}
+
+// Get icon for a tag filter button
+function getTagIcon(tag: string) {
+  return tagIcons[tag] || IconHash;
+}
+---
+
+<Layout title={`Sparks | ${SITE.title}`}>
+  <Header />
+
+  <main class="mx-auto max-w-3xl px-4 pb-12">
+    <h1 class="text-4xl font-extrabold mb-1">Sparks</h1>
+    <p class="text-foreground/60 mb-8">
+      Quick flashes of insight—snippets, links, quotes, and things I've learned.
+    </p>
+
+    <!-- Tag filters -->
+    <div class="mb-10">
+      <div class="flex flex-wrap gap-2" id="tag-filters">
+        <button
+          data-tag="all"
+          class="filter-btn active inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border bg-muted/50 hover:bg-accent hover:text-background transition-colors"
+        >
+          All
+        </button>
+        {allTags.map((tag) => {
+          const TagIcon = getTagIcon(tag);
+          return (
+            <button
+              data-tag={tag}
+              class="filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-full border border-border hover:bg-accent hover:text-background transition-colors"
+            >
+              <TagIcon class="w-4 h-4" />
+              {tag}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Notes grid -->
+    <div class="space-y-4" id="notes-container">
+      {sortedNotes.map((note) => {
+        const NoteIcon = getNoteIcon(note);
+        return (
+          <article
+            class="note-card border border-border rounded-lg p-4 hover:bg-muted/30 transition-colors"
+            data-tags={JSON.stringify(note.data.tags || [])}
+          >
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-muted/50">
+                <NoteIcon class="w-5 h-5 text-accent" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-baseline justify-between gap-4 mb-2">
+                  <h3 class="font-medium text-foreground">
+                    {note.data.title}
+                  </h3>
+                  <time
+                    datetime={note.data.pubDatetime.toISOString()}
+                    class="text-sm text-foreground/50 whitespace-nowrap"
+                  >
+                    {formatDate(note.data.pubDatetime)}
+                  </time>
+                </div>
+
+                {note.data.type === "quote" && note.data.source && (
+                  <p class="text-sm text-foreground/60 mb-2">— {note.data.source}</p>
+                )}
+
+                {note.data.type === "link" && note.data.link && (
+                  <a
+                    href={note.data.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-sm text-accent hover:underline mb-2 block truncate"
+                  >
+                    {note.data.link}
+                  </a>
+                )}
+
+                <div class="text-foreground/80 prose-sm prose-neutral dark:prose-invert [&_pre]:bg-muted [&_pre]:p-3 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_code]:text-sm">
+                  <Fragment set:html={note.rendered?.html || note.body} />
+                </div>
+
+                {note.data.tags && note.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 mt-3">
+                    {note.data.tags.map((tag: string) => (
+                      <span class="text-xs px-2 py-0.5 bg-muted rounded-full text-foreground/60">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    {sortedNotes.length === 0 && (
+      <p class="text-foreground/60 text-center py-12">
+        No sparks yet. Check back soon!
+      </p>
+    )}
+
+    <p id="no-results" class="text-foreground/60 text-center py-12 hidden">
+      No sparks found for this filter.
+    </p>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .filter-btn.active {
+    background-color: var(--accent);
+    color: var(--background);
+    border-color: var(--accent);
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const noteCards = document.querySelectorAll(".note-card");
+    const noResults = document.getElementById("no-results");
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tag = btn.getAttribute("data-tag");
+
+        // Update active state
+        filterBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        // Filter cards
+        let visibleCount = 0;
+        noteCards.forEach((card) => {
+          const cardTags = JSON.parse(card.getAttribute("data-tags") || "[]");
+          const shouldShow = tag === "all" || cardTags.includes(tag);
+
+          if (shouldShow) {
+            card.classList.remove("hidden");
+            visibleCount++;
+          } else {
+            card.classList.add("hidden");
+          }
+        });
+
+        // Show/hide no results message
+        if (noResults) {
+          noResults.classList.toggle("hidden", visibleCount > 0);
+        }
+      });
+    });
+  });
+</script>

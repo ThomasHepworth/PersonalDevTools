@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@import "./typography.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root,
+html[data-theme="light"] {
+  --background: #f9f9f9; /* Light gray background */
+  --foreground: #333333; /* Dark gray text */
+  --accent: #555555; /* Medium gray accent */
+  --muted: #e0e0e0; /* Very light gray muted */
+  --border: #cccccc; /* Light gray border */
+}
+
+html[data-theme="dark"] {
+  --background: #0d1117; /* Deep dark blue-black (GitHub dark) */
+  --foreground: #e6edf3; /* Soft white text */
+  --accent: #bd93f9; /* Dracula purple - friendly pop of color */
+  --muted: #161b22; /* Slightly lighter dark for cards */
+  --border: #30363d; /* Subtle border */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+  html {
+    @apply overflow-y-scroll scroll-smooth;
+  }
+  body {
+    @apply flex min-h-svh flex-col bg-background font-mono text-foreground selection:bg-accent/75 selection:text-background;
+  }
+  a,
+  button {
+    @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  section,
+  footer {
+    @apply mx-auto max-w-3xl px-4;
+  }
+}
+
+.active-nav {
+  @apply underline decoration-wavy decoration-2 underline-offset-4;
+}
+
+.top-bar-title {
+  font-family: 'Fira Code', monospace;
+  background-color: #2a2a2a;
+  color: #f4f4f4;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #444;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+}

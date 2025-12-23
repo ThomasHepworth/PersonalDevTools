@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import getUniqueTags from "@/utils/getUniqueTags";
+import { SITE } from "@/config";
+import type { GetStaticPathsOptions } from "astro";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const sortedPosts = getSortedPosts(allPosts);
+const tags = getUniqueTags(allPosts);
+const categories = Array.from(
+  new Set(allPosts.map((p) => p.data.postCategory))
+).filter(Boolean).sort();
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return paginate(posts, {
+    pageSize: 5, // Adjust the page size as needed
+    params: {},
+    props: {},
+  });
+}
+---
+
+<Layout title={`Posts | ${SITE.title}`}>
+  <Header />
+  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
+    <label for="postCategoryFilter">Filter by category:</label>
+    <div class="category-filter-box">
+      <p class="stylized-text">Choose your category below</p>
+      <select id="postCategoryFilter" name="postCategoryFilter">
+        <option value="">All</option>
+        {categories.map((c) => <option value={c}>{c}</option>)}
+      </select>
+    </div>
+    <ul>
+      {sortedPosts.map(data => <Card {...data} />)}
+    </ul>
+  </Main>
+
+  <Footer />
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector("#postCategoryFilter")?.addEventListener("change", (event: Event) => {
+        const val = (event.target as HTMLSelectElement).value;
+        if (val) location.href = `/categories/${val}`;
+      });
+    });
+  </script>
+</Layout>
