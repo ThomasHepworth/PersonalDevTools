@@ -7,9 +7,9 @@ tags:
   - tooling
 ---
 
-When working with `uv`, it's possible to automatically install dependencies at runtime if they are not already present in the environment by injecting a docstring at the top of your script.
+When working with `uv`, you can have dependencies installed automatically at runtime (if they’re not already available) by adding a small `script` metadata block at the top of your Python file.
 
-For example, if you run the following script with `uv`, you should automatically install `duckdb` and process a simple query:
+For example, if you run the script below with `uv`, it will install `duckdb` and then execute a simple query:
 
 ```python
 # /// script
