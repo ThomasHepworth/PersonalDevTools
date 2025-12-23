@@ -258,35 +258,41 @@ function get_git_url() {
         shift
     fi
 
-    # Get the remote URL
-    local ssh_url
-    ssh_url=$(git remote get-url origin 2>/dev/null) || {
+    local remote_url
+    remote_url=$(git remote get-url origin 2>/dev/null) || {
         echo "Error: could not get remote URL (are you in a git repo?)" >&2
         return 1
     }
 
-    # Convert to HTTPS if needed
-    local https_url
-    if [[ $ssh_url == git@github.com:* ]]; then
-        https_url=${ssh_url/git@github.com:/https:\/\/github.com\/}
-        https_url=${https_url/.git/}
-        echo "HTTPS URL: $https_url"
-    else
-        https_url=${ssh_url/.git/}
-        echo "Remote URL: $https_url"
+    # Convert SSH to HTTPS for common providers (GitHub, GitLab, Bitbucket, etc.)
+    local https_url="$remote_url"
+    if [[ $remote_url =~ ^git@([^:]+):(.+)$ ]]; then
+        local host="${BASH_REMATCH[1]}"
+        local path="${BASH_REMATCH[2]}"
+        https_url="https://${host}/${path}"
     fi
 
-    # Open in the system default browser
+    # Remove .git suffix only if at the end
+    https_url="${https_url%.git}"
+
     if $open_url; then
-        if command -v xdg-open >/dev/null 2>&1; then
-            xdg-open "$https_url" >/dev/null 2>&1 &
-        elif command -v open >/dev/null 2>&1; then
+        # Detect and use appropriate opener for each platform
+        if [[ -n "${WSL_DISTRO_NAME:-}" ]]; then
+            # Windows Subsystem for Linux
+            wslview "$https_url" 2>/dev/null || explorer.exe "$https_url"
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
             open "$https_url"
-        elif command -v start >/dev/null 2>&1; then
-            start "$https_url"
+        elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+            # Git Bash / Cygwin on Windows
+            cmd.exe /c start "" "$https_url" 2>/dev/null
+        elif command -v xdg-open >/dev/null 2>&1; then
+            xdg-open "$https_url" >/dev/null 2>&1 &
         else
-            echo "Could not detect a way to open the browser automatically." >&2
+            echo "Could not detect a way to open the browser." >&2
+            echo "$https_url"
             return 1
         fi
+    else
+        echo "$https_url"
     fi
 }

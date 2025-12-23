@@ -26,7 +26,6 @@ function setup_vscode_settings() {
   # Desired settings (VS Code accepts JSON with comments)
   read -r -d '' desired_json <<'JSON'
 {
-{
   // === Editor ergonomics ===
   "editor.tabSize": 4,
   "editor.insertSpaces": true,
@@ -66,6 +65,14 @@ function setup_vscode_settings() {
 
   // === Terminal ===
   "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.profiles.osx": {
+    "Copilot (clean bash)": {
+      "path": "/bin/bash",
+      "args": ["--noprofile", "--norc"]
+    }
+  },
+  "terminal.integrated.defaultProfile.osx": "Copilot (clean bash)",
 
   // === Security & telemetry ===
   "security.workspace.trust.enabled": true,
@@ -100,8 +107,8 @@ function setup_vscode_settings() {
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
   "python.testing.pytestArgs": [
-    "-v",
-    "--capture=tee-sys"
+    "-q",        // quiet, one-shot
+    "-ra"        // show extra summary for failed/skipped
   ]
 }
 JSON

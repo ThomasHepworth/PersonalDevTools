@@ -6,6 +6,7 @@ export HOMEBREW_PREFIX=$(brew --prefix)/
 export ZSH="$HOME/.oh-my-zsh"
 export AWS_CLI_AUTO_PROMPT=on-partial
 export DBT_PROFILES_DIR=../.dbt/
+export GPG_TTY=$(tty)
 
 # Eval shell integrations
 eval "$(fzf --zsh)"

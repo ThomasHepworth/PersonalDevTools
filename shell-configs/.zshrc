@@ -52,6 +52,8 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
 # Print a cheeky cow
-cowsay $(fortune)
+# cowsay $(fortune)
 # fortune | cowsay -f $(ls $(brew --prefix)/share/cows | shuf -n1)
