@@ -1,7 +1,7 @@
 ---
 author: Tom Hepworth
-pubDatetime: 2025-12-26T10:00:00Z
-modDatetime: 2025-12-26T10:00:00Z
+pubDatetime: 2025-12-26T20:00:00Z
+modDatetime: 2025-12-26T20:00:00Z
 title: "Book Overview: White Nights by Fyodor Dostoevsky"
 slug: white-nights-overview
 postCategory: resources
