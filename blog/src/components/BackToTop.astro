@@ -1,0 +1,46 @@
+---
+import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
+---
+
+<button
+  id="back-to-top"
+  class="fixed bottom-6 right-6 z-50 hidden h-10 w-10 items-center justify-center rounded-full bg-accent text-skin-inverted opacity-90 shadow-lg transition-all duration-300 hover:opacity-100 focus-outline"
+  aria-label="Back to top"
+>
+  <IconChevronLeft class="h-5 w-5 rotate-90" />
+</button>
+
+<script>
+  function setupBackToTop() {
+    const button = document.querySelector("#back-to-top") as HTMLButtonElement;
+    if (!button) return;
+
+    // Show/hide based on scroll position
+    function toggleVisibility() {
+      if (window.scrollY > 300) {
+        button.classList.remove("hidden");
+        button.classList.add("flex");
+      } else {
+        button.classList.add("hidden");
+        button.classList.remove("flex");
+      }
+    }
+
+    // Scroll to top on click
+    button.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Listen for scroll events
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
+
+    // Initial check
+    toggleVisibility();
+  }
+
+  // Run on initial load
+  setupBackToTop();
+
+  // Re-run after Astro page transitions
+  document.addEventListener("astro:after-swap", setupBackToTop);
+</script>
