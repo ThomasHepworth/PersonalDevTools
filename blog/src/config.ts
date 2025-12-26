@@ -4,7 +4,7 @@ export const SITE = {
   profile: "https://github.com/ThomasHepworth",
   desc: "Data engineering insights, German expressionism, bouldering, books, and whatever else captures my curiosity.",
   title: "> tomhepworth",
-  ogImage: "og-image.jpg",
+  ogImage: "og-image.png",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,
