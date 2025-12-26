@@ -4,7 +4,7 @@ pubDatetime: 2025-04-18T12:35:00Z
 title: Terminal Plugins I Love
 slug: terminal-plugins-i-love
 postCategory: software_engineering
-featured: true
+featured: false
 draft: false
 tags:
   - recommendations

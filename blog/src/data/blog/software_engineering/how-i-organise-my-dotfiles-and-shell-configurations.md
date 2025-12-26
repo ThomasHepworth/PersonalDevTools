@@ -4,7 +4,7 @@ pubDatetime: 2025-04-18T12:35:00Z
 title: How I Organise My Dotfiles and Shell Configurations
 slug: how-i-organise-my-dotfiles-and-shell-configurations
 postCategory: software_engineering
-featured: true
+featured: false
 draft: false
 tags:
   - tutorial

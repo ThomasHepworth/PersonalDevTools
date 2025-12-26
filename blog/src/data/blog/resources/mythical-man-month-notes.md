@@ -5,7 +5,7 @@ modDatetime: 2025-12-23T10:00:00Z
 title: "Book Notes: The Mythical Man-Month"
 slug: mythical-man-month-notes
 postCategory: resources
-featured: false
+featured: true
 draft: false
 tags:
   - book-notes
