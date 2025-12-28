@@ -76,11 +76,11 @@ function getTagIcon(tag: string) {
 }
 ---
 
-<Layout title={`Sparks | ${SITE.title}`}>
+<Layout title={`Snippets | ${SITE.title}`}>
   <Header />
 
   <main class="mx-auto max-w-3xl px-4 pb-12">
-    <h1 class="text-4xl font-extrabold mb-1">Sparks</h1>
+    <h1 class="text-4xl font-extrabold mb-1">Snippets</h1>
     <p class="text-foreground/60 mb-8">
       Quick flashes of insight—snippets, links, quotes, and things I've learned.
     </p>
@@ -172,12 +172,12 @@ function getTagIcon(tag: string) {
 
     {sortedNotes.length === 0 && (
       <p class="text-foreground/60 text-center py-12">
-        No sparks yet. Check back soon!
+        No snippets yet. Check back soon!
       </p>
     )}
 
     <p id="no-results" class="text-foreground/60 text-center py-12 hidden">
-      No sparks found for this filter.
+      No snippets found for this filter.
     </p>
   </main>
 

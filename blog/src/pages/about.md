@@ -22,6 +22,6 @@ Alongside the technical posts, you'll also find the odd entry on books, art, and
 
 I'm also trying to grow my very own avocado tree. If that's successful, expect exciting updates...
 
-The [mini blog](/sparks) is where I dump quick snippets, useful links, and half-formed thoughts.
+The [mini blog](/snippets) is where I dump quick snippets, useful links, and half-formed thoughts.
 
 Feel free to reach out if you want to chat about data, expressionism, or the beta for that overhang you're stuck on. My social links are in the footer.
