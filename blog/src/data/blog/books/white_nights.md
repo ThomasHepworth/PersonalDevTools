@@ -3,6 +3,7 @@ author: Tom Hepworth
 pubDatetime: 2025-12-26T20:00:00Z
 modDatetime: 2025-12-26T20:00:00Z
 title: "Book Overview: White Nights by Fyodor Dostoevsky"
+ogImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Kandinsky_-_View_of_Moscow_from_the_Window_of_Kandinsky%27s_Apartment_at_No._1%2C_Zubovsky_Square%2C_circa_1916.jpg?width=1200"
 slug: white-nights-overview
 postCategory: resources
 featured: true

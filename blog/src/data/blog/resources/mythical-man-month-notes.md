@@ -3,6 +3,7 @@ author: Tom Hepworth
 pubDatetime: 2024-10-13T10:00:00Z
 modDatetime: 2025-12-26T20:43:00Z
 title: "Book Notes: The Mythical Man-Month"
+ogImage: "https://www.informit.com/ShowCover.aspx?isbn=0201835959"
 slug: mythical-man-month-notes
 postCategory: resources
 featured: true

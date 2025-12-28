@@ -1,6 +1,7 @@
 ---
 import { SHARE_LINKS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
+import IconLink from "@/assets/icons/IconLink.svg";
 
 const URL = Astro.url;
 ---
@@ -24,3 +25,51 @@ const URL = Astro.url;
     }
   </div>
 </div>
+
+<div class="mt-4 flex items-center gap-2">
+  <button
+    id="copy-link-btn"
+    class="group inline-flex items-center gap-2 rounded-md border border-skin-line px-3 py-1.5 text-sm transition-all hover:border-accent hover:text-accent"
+    data-url={URL}
+    title="Copy link to clipboard"
+  >
+    <IconLink class="size-4 stroke-current stroke-2" />
+    <span id="copy-link-text">Copy link</span>
+  </button>
+</div>
+
+<script>
+  function setupCopyButton() {
+    const copyBtn = document.getElementById("copy-link-btn");
+    const copyText = document.getElementById("copy-link-text");
+
+    if (!copyBtn || !copyText) return;
+
+    copyBtn.addEventListener("click", async () => {
+      const url = copyBtn.getAttribute("data-url") || window.location.href;
+
+      try {
+        await navigator.clipboard.writeText(url);
+        copyText.textContent = "Copied!";
+        copyBtn.classList.add("border-accent", "text-accent");
+
+        setTimeout(() => {
+          copyText.textContent = "Copy link";
+          copyBtn.classList.remove("border-accent", "text-accent");
+        }, 2000);
+      } catch (err) {
+        console.error("Failed to copy link:", err);
+        copyText.textContent = "Failed to copy";
+        setTimeout(() => {
+          copyText.textContent = "Copy link";
+        }, 2000);
+      }
+    });
+  }
+
+  // Run on initial load
+  setupCopyButton();
+
+  // Re-run after view transitions
+  document.addEventListener("astro:after-swap", setupCopyButton);
+</script>
