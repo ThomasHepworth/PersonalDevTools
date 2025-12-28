@@ -5,7 +5,7 @@ modDatetime: 2025-12-23T10:00:00Z
 title: Recommended Books for Data Engineers
 slug: recommended-books
 postCategory: resources
-featured: false
+featured: true
 draft: false
 tags:
   - recommendations
