@@ -107,18 +107,21 @@ That makes it easy to:
 Aliases folder:
 - https://github.com/ThomasHepworth/PersonalDevTools/tree/main/shell-configs/shell/aliases
 
-#### 📄 Functions
+#### 📁 Functions
 
-The `functions` file contains custom shell functions I use often. These are mostly small helpers: shortcuts for common directories, quick Git helpers, or little wrappers around tools I use a lot.
+The `functions` directory contains custom shell functions I use often. These are mostly small helpers: shortcuts for common directories, quick Git helpers, or little wrappers around tools I use a lot.
 
 I prefer functions for anything that:
 - needs arguments
 - benefits from a bit of logic
 - is more than a one-liner
 
-#### 📄 Installs
+Functions folder:
+- https://github.com/ThomasHepworth/PersonalDevTools/tree/main/shell-configs/shell/functions
 
-The `installs` file is where I keep the "setup" side of things: installing or configuring tools and plugins. I cover some of these in more detail in:
+#### 📁 Installs
+
+The `installs` directory is where I keep the "setup" side of things: installing or configuring tools and plugins. I cover some of these in more detail in:
 
 - [Terminal Plugins that I Love](https://tomhepworth.dev/posts/software-engineering/terminal-plugins-i-love/)
 
@@ -129,13 +132,17 @@ This includes things like:
 
 Keeping installs separate helps keep the day-to-day config readable, and it makes migrating to a new machine much faster: copy the directory, run installs, and you're most of the way there.
 
-Note: I try to avoid hard-coding secrets in here. For API keys and anything sensitive, I prefer a separate mechanism (a password manager, injected env vars, or a private local file that isn't committed).
+Installs folder:
+- https://github.com/ThomasHepworth/PersonalDevTools/tree/main/shell-configs/shell/installs
 
-#### 📄 Exports
+#### 📄 Exports.sh
 
 `exports.sh` is where I define environment variables: PATH additions, tool configuration flags, and anything I want available everywhere.
 
 I keep this file boring on purpose. It should be safe to source repeatedly, and easy to scan.
+
+Exports file:
+- https://github.com/ThomasHepworth/PersonalDevTools/blob/main/shell-configs/shell/exports.sh
 
 #### 📄 Load
 
@@ -175,6 +182,9 @@ For example, any aliases listed within the file [aliases_git.sh](https://github.
 </figure>
 
 This is intentionally lightweight. It's "good enough" for my own conventions, rather than trying to build a perfect parser for every shell edge case. Often I simply need a nudge or quick list, rather than a full audit.
+
+Load file:
+- https://github.com/ThomasHepworth/PersonalDevTools/blob/main/shell-configs/shell/load.sh
 
 ---
 
