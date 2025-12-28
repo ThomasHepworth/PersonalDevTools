@@ -2,7 +2,7 @@
 author: Tom Hepworth
 pubDatetime: 2025-12-23T10:00:00Z
 modDatetime: 2025-12-23T10:00:00Z
-title: Recommended Books for Software Engineers
+title: Recommended Books for Data Engineers
 slug: recommended-books
 postCategory: resources
 featured: false
