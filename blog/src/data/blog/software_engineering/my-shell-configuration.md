@@ -76,7 +76,9 @@ done
 
 Nothing groundbreaking, but it keeps things modular. Each file does one job, and you can add or remove pieces without worrying about breaking the whole thing.
 
-Tip: glob order is typically alphabetical. If you ever need a strict load order, prefix filenames with numbers (e.g. `00_exports.sh`, `10_aliases.sh`).
+<div class="tip">
+  <p>Glob order is typically alphabetical. If you ever need a strict load order, prefix filenames with numbers (e.g. <code>00_exports.sh</code>, <code>10_aliases.sh</code>).</p>
+</div>
 
 ## Folder structure
 

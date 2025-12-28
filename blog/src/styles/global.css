@@ -54,6 +54,17 @@ html[data-theme="dark"] {
   }
 }
 
+@layer components {
+  .tip {
+    @apply my-4 rounded-lg border border-border bg-muted/40 p-4 text-sm leading-relaxed;
+  }
+
+  .tip::before {
+    content: "💡 Tip";
+    @apply mb-2 block text-xs font-semibold uppercase tracking-wide text-accent;
+  }
+}
+
 .active-nav {
   @apply underline decoration-wavy decoration-2 underline-offset-4;
 }
