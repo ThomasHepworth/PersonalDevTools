@@ -25,9 +25,9 @@ description:
 
 # My shell configuration
 
-For years, I kept things simple: the built-in macOS Terminal, with `oh-my-zsh`, and not much else. It worked well enough day-to-day.
+For years, I kept things simple, using the built-in macOS Terminal, with `oh-my-zsh`, and not much else. It worked well enough day-to-day.
 
-Over time though, I found a handful of small improvements that add up: quicker navigation, better defaults, and a setup that's easy to move across machines. This post is a brief overview of how I organise my shell configuration.
+Over time though, I have found a handful of small improvements that add up. Quicker navigation, better defaults, and a setup that's easy to move across machines. This post is a brief overview of how I organise my shell configuration.
 
 It's not meant to be prescriptive, just a practical starting point if you're thinking, "my `.zshrc` is getting a bit... long".
 
@@ -170,7 +170,7 @@ For example, any aliases listed within the file [aliases_git.sh](https://github.
   <img
     src="https://raw.githubusercontent.com/ThomasHepworth/PersonalDevTools/main/blog/src/assets/images/aliases_git_call.png"
     alt="Calling aliases_git to list git aliases in the terminal"
-    class="w-1/2 max-w-full h-auto"
+    class="w-3/4 max-w-full h-auto"
   />
 </figure>
 
