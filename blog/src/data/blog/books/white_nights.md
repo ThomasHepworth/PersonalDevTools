@@ -11,6 +11,7 @@ draft: false
 tags:
   - book
   - book-reflection
+  - classic
   - fiction
 description: My reflections on Fyodor Dostoevsky's "White Nights" and its exploration of loneliness, dreams, and human connection.
 ---
