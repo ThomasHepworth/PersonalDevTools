@@ -1,7 +1,7 @@
 ---
 author: Tom Hepworth
-pubDatetime: 2025-12-30T20:00:00Z
-modDatetime: 2025-12-30T20:00:00Z
+pubDatetime: 2025-12-30T20:23:00Z
+modDatetime: 2025-12-30T22:42:00Z
 title: "The Picture of Dorian Gray - a perfect face, and the rot behind it"
 ogImage: "https://www.litteratureaudio.com/wp-content/uploads/John-Singer-Sargent-Portrait-dArthur-Ramsay-14e-comte-de-Dalhousie-1900-e1667086629822.jpeg"
 slug: dorian-gray-reflections
@@ -44,7 +44,7 @@ And he gets what he asks for. His soul is severed.
 
 From there we watch the split form. Dorian, externally pristine, drifts into a double life of pleasure and cruelty. People around him are damaged, discarded, or destroyed. The portrait in the attic changes, quietly recording what his face refuses to show.
 
-If you have not read it and you want to avoid spoilers, stop here. The rest of this piece talks about the later violence and the ending.
+Dorian starts to feel like a reverse King Midas. He stays perfect on the outside, but everything he touches rots.
 
 ## The making of a narcissist
 
