@@ -38,9 +38,9 @@ Despite being written over a century ago, it still reads like a beautifully mode
 
 Dorian Gray is introduced as the most beautiful young man in London. Basil Hallward, an artist, paints his portrait, and Basil's devotion to Dorian is not subtle. Lord Henry Wotton arrives like a perfume you know will turn sickly later on, and he speaks in epigrams that feel like little blades. Dorian listens. Dorian absorbs.
 
-When the portrait is finished, Dorian panics at the thought of ageing. He makes a wish, a kind of spiritual tantrum, that the painting should bear the burden of time and sin while he remains untouched.
+Upon seeing the finished portrait, Dorian is struck by the contrast between his own youthful beauty and the inevitable decay that time will bring. In a moment of panic, he expresses a wish that he could remain forever young while the portrait ages in his place.
 
-And he gets what he asks for.
+And he gets what he asks for. His soul is severed.
 
 From there we watch the split form. Dorian, externally pristine, drifts into a double life of pleasure and cruelty. People around him are damaged, discarded, or destroyed. The portrait in the attic changes, quietly recording what his face refuses to show.
 
@@ -118,7 +118,7 @@ Dorian even tells a girl he is wicked, and she laughs, because the world has tau
   </figcaption>
 </figure>
 
-That line is funny on the surface. It is also a little devastating. Beauty does not just attract. It absolves. It buys forgiveness. It delays judgement. It makes people complicit.
+That line is funny on the surface. It is also a subtly devastating. Beauty does not just attract. It absolves. It buys forgiveness. It delays judgement. It makes people complicit.
 
 ## Basil, shame, and the portrait in the attic
 
@@ -145,7 +145,16 @@ Then comes Alan Campbell, blackmailed into helping cover up the crime. And Doria
 
 ## Is it repentance, or just self-preservation
 
-Dorian does eventually become haunted. Not in a gothic, creaky-stairs way, but in the way a mind collapses under the weight of what it refuses to face. He is stalked by paranoia. He is stalked by the consequences he thought he could outrun. He is stalked by the portrait, which holds his shame in paint and makes it impossible to pretend forever.
+Dorian does eventually become haunted. His psyche unravels and his mind begins to collapse under the weight of what he has for so long refused to face. He is shadowed by the consequences he thought he could outrun, paranoid now, unable to be alone. The portrait stalks him, holding his shame in paint and making it impossible to pretend forever.
+
+<figure class="pull-quote">
+  <blockquote>
+    <p>It had been like conscience to him. Yes, it had been conscience. He would destroy it.</p>
+  </blockquote>
+  <figcaption>
+    <cite><em>The Picture of Dorian Gray</em></cite> - Oscar Wilde, Penguin Classics, ch. 20, p. 212
+  </figcaption>
+</figure>
 
 He wants the portrait not only to contain his soul, but also his guilt, his grief, his regret. He wants to put all the ugly things somewhere else and keep his reflection clean.
 
