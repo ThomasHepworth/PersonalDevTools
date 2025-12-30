@@ -11,6 +11,7 @@ export interface Props extends CollectionEntry<"blog"> {
 const { variant = "h2", data, id, filePath } = Astro.props;
 
 const { title, description, pubDatetime, modDatetime, timezone } = data;
+const isDraft = Boolean(data.draft);
 
 const headerProps = {
   style: { viewTransitionName: slugifyStr(title) },
@@ -31,6 +32,11 @@ const headerProps = {
       )
     }
   </a>
+  {isDraft && (
+    <span class="ml-2 inline-flex items-center rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold uppercase text-orange-700">
+      Draft
+    </span>
+  )}
   <Datetime {pubDatetime} {modDatetime} {timezone} />
   <p>{description}</p>
 </li>

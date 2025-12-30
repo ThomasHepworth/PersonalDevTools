@@ -7,10 +7,11 @@ import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import getUniqueTags from "@/utils/getUniqueTags";
+import postFilter from "@/utils/postFilter";
 import { SITE } from "@/config";
 import type { GetStaticPathsOptions } from "astro";
 
-const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const allPosts = await getCollection("blog");
 const sortedPosts = getSortedPosts(allPosts);
 const tags = getUniqueTags(allPosts);
 const categories = Array.from(
@@ -18,7 +19,7 @@ const categories = Array.from(
 ).filter(Boolean).sort();
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const posts = (await getCollection("blog")).filter(postFilter);
   return paginate(posts, {
     pageSize: 5, // Adjust the page size as needed
     params: {},

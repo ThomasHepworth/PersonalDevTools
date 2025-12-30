@@ -5,11 +5,12 @@ import Header  from '@/components/Header.astro';
 import Footer  from '@/components/Footer.astro';
 import getPostsByGroupCondition from '@/utils/getPostsByGroupCondition';
 import { getPath } from '@/utils/getPath';
+import postFilter from '@/utils/postFilter';
 import { SITE } from '@/config';
 import { POST_TAGS } from '@/constants';
 import IconHash from '@/assets/icons/IconHash.svg';
 
-const posts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = (await getCollection('blog')).filter(postFilter);
 
 const months = [
   'January','February','March','April','May','June',
@@ -109,6 +110,11 @@ function getPostIcon(tags: string[]) {
                           >
                             {entry.data.title}
                           </a>
+                          {entry.data.draft && (
+                            <span class="ml-2 inline-flex items-center rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold uppercase text-orange-700">
+                              Draft
+                            </span>
+                          )}
                           <p class="text-foreground/70 mt-1">{entry.data.description}</p>
                         </li>
                       );
