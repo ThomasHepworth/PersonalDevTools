@@ -6,8 +6,8 @@ title: "The Picture of Dorian Gray - a perfect face, and the rot behind it"
 ogImage: "https://www.litteratureaudio.com/wp-content/uploads/John-Singer-Sargent-Portrait-dArthur-Ramsay-14e-comte-de-Dalhousie-1900-e1667086629822.jpeg"
 slug: dorian-gray-reflections
 postCategory: resources
-featured: true
-draft: false
+featured: false
+draft: true
 tags:
   - book
   - book-reflection
