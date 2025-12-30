@@ -82,7 +82,7 @@ It is seductive. It is freeing. It is also poison. What it really says is that r
 
 Just over halfway through, Dorian receives the infamous book from Lord Henry, and it becomes a kind of scripture. This is where the narrative accelerates. Where earlier Dorian still had flashes of remorse, now he throws moral compunction into the fire and watches it burn.
 
-From that point on, we are taken on a tour through the mind of a man who has lost what makes someone human. He hoards jewels and tapestries, he collects experiences like trophies, he moves through pleasure with a kind of hungry boredom.
+From that point on, we are taken on a tour through the mind of a man who has lost what makes someone human. He moves through life's pleasures with a kind of hungry boredom.
 
 And this is not apathy. This is disregard. A coldness that looks like confidence until you get close enough to feel it.
 
@@ -97,7 +97,7 @@ Later in the novel, Dorian is asked if this philosophy makes him happy. His answ
   </figcaption>
 </figure>
 
-I remember reading that and thinking, yes, that is exactly the problem. Happiness implies some relationship with the world, some acceptance of reality, some capacity for contentment. Pleasure is easier. Pleasure is immediate. Pleasure is something you can chase without ever being known.
+And that encapsulates the tragedy. Happiness implies some relationship with the world, some acceptance of reality, some capacity for contentment. Pleasure is easier. Pleasure is immediate. Pleasure is something you can chase without ever being known.
 
 ## Sybil Vane and the hollow kind of love
 
@@ -137,7 +137,7 @@ Dorian says something that speaks to the core of the human condition, and the de
   </figcaption>
 </figure>
 
-Yes. Exactly. And the entire novel is about what happens when you feed one and starve the other, while keeping your face immaculate.
+Yes, exactly. And the entire novel is about what happens when you feed one and starve the other, while keeping your face immaculate.
 
 Basil prays for Dorian, tries himself to beg for the return of his soul, and Dorian kills him. This is the point at which Dorian stops being merely corrupted and becomes actively destructive. He has slain the one person who loved him with any sincerity and saw the innocence buried deep within him.
 
