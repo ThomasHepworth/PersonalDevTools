@@ -49,14 +49,22 @@ async function loadGoogleFonts(
     },
   ];
 
-  const fonts = await Promise.all(
+  // Gracefully fall back to default fonts when network/font fetching fails.
+  const fonts = await Promise.allSettled(
     fontsConfig.map(async ({ name, font, weight, style }) => {
       const data = await loadGoogleFont(font, text, weight);
       return { name, data, weight, style };
     })
   );
 
-  return fonts;
+  return fonts
+    .filter((result): result is PromiseFulfilledResult<{
+      name: string;
+      data: ArrayBuffer;
+      weight: number;
+      style: string;
+    }> => result.status === "fulfilled")
+    .map(result => result.value);
 }
 
 export default loadGoogleFonts;

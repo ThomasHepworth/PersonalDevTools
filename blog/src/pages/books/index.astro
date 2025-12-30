@@ -1,0 +1,67 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getPath } from "@/utils/getPath";
+import { SITE } from "@/config";
+
+const books = (await getCollection("blog", ({ data }) =>
+  !data.draft && (data.tags || []).includes("book"),
+)).sort((a, b) => +new Date(b.data.pubDatetime) - +new Date(a.data.pubDatetime));
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat("en-GB", {
+    month: "short",
+    year: "numeric",
+  }).format(date);
+}
+
+function getBookType(tags: string[] = []) {
+  if (tags.includes("book-reflection")) return "Reflections";
+  if (tags.includes("book-notes")) return "Notes";
+  return "Reading";
+}
+---
+
+<Layout title={`Books | ${SITE.title}`}>
+  <Header />
+
+  <main class="mx-auto max-w-3xl px-4 pb-12">
+    <h1 class="text-4xl font-extrabold mb-1">Books</h1>
+    <p class="text-foreground/60 mb-8 max-w-2xl">
+      Longer-form reading notes and reflections. No filters here yet—just the books I have written about so far.
+    </p>
+
+    {books.length > 0 ? (
+      <ul class="space-y-4">
+        {books.map((book) => (
+          <li class="border border-border rounded-lg p-4 hover:bg-muted/30 transition-colors">
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold rounded-full bg-muted/60 text-foreground/80">
+                {getBookType(book.data.tags)}
+              </span>
+              <time
+                datetime={book.data.pubDatetime.toISOString()}
+                class="text-sm text-foreground/60 whitespace-nowrap"
+              >
+                {formatDate(book.data.pubDatetime)}
+              </time>
+            </div>
+            <a
+              href={getPath(book.id, book.filePath)}
+              class="block text-lg font-medium text-accent decoration-dashed underline-offset-4 hover:underline"
+            >
+              {book.data.title}
+            </a>
+            <p class="text-foreground/70 mt-1 text-sm">{book.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="text-foreground/60">No books yet. Check back soon.</p>
+    )}
+  </main>
+
+  <Footer />
+</Layout>

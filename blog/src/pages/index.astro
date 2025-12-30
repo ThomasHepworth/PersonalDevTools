@@ -22,7 +22,7 @@ const featuredPosts = sortedPosts.filter(({ data }) => data.featured).slice(0, 3
         software design, and whatever else catches my interest.
       </p>
       <p class="text-foreground/60 mb-8 max-w-lg mx-auto text-sm">
-        Browse the posts, learn more about me, or check out Snippets for quick notes and finds.
+        Browse the posts, dip into my book reflections and notes, learn more about me, or check out Snippets for quick finds.
       </p>
 
       <!-- Big CTA buttons -->
@@ -32,6 +32,12 @@ const featuredPosts = sortedPosts.filter(({ data }) => data.featured).slice(0, 3
           class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border font-medium hover:bg-muted/50 transition-colors"
         >
           Posts
+        </a>
+        <a
+          href="/books"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border font-medium hover:bg-muted/50 transition-colors"
+        >
+          Books
         </a>
         <a
           href="/snippets"

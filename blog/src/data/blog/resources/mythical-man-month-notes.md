@@ -2,13 +2,14 @@
 author: Tom Hepworth
 pubDatetime: 2024-10-13T10:00:00Z
 modDatetime: 2025-12-26T20:43:00Z
-title: "Book Notes: The Mythical Man-Month"
+title: "The Mythical Man-Month — Notes and Highlights"
 ogImage: "https://www.informit.com/ShowCover.aspx?isbn=0201835959"
 slug: mythical-man-month-notes
 postCategory: resources
 featured: true
 draft: false
 tags:
+  - book
   - book-notes
   - project-management
   - software-engineering
