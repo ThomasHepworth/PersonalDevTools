@@ -2,14 +2,16 @@
 author: Tom Hepworth
 pubDatetime: 2025-12-26T20:00:00Z
 modDatetime: 2025-12-26T20:00:00Z
-title: "Book Overview: White Nights by Fyodor Dostoevsky"
+title: "White Nights — Reflections on Dreaming and Loneliness"
 ogImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Kandinsky_-_View_of_Moscow_from_the_Window_of_Kandinsky%27s_Apartment_at_No._1%2C_Zubovsky_Square%2C_circa_1916.jpg?width=1200"
 slug: white-nights-overview
 postCategory: resources
 featured: true
 draft: false
 tags:
-  - book-notes
+  - book
+  - book-reflection
+  - fiction
 description: My reflections on Fyodor Dostoevsky's "White Nights" and its exploration of loneliness, dreams, and human connection.
 ---
 
@@ -31,6 +33,15 @@ description: My reflections on Fyodor Dostoevsky's "White Nights" and its explor
 Dostoyevsky is a master of this. *White Nights* is short and deceptively simple on the surface. It unfolds over a handful of nights and keeps close to a small cast, an unnamed narrator (the "Dreamer"), a young woman called Nastenka, her grandmother, and the lodger she hopes will return. Yet within that tight frame, Dostoyevsky builds a surprisingly modern study of urban loneliness, romantic projection, and the dangers of replacing reality with dreams.
 
 What matters is not any one theme in isolation, but the way each one feeds the next. Loneliness makes the narrator porous to fantasy. Fantasy makes love feel like salvation. When reality intrudes, the light goes out and time is what remains.
+
+<figure class="pull-quote">
+  <blockquote>
+    <p>We suffer more in imagination than in reality.</p>
+  </blockquote>
+  <figcaption>
+    <cite>Seneca</cite>
+  </figcaption>
+</figure>
 
 ---
 
