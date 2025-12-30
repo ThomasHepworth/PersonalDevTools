@@ -48,11 +48,11 @@ Dorian starts to feel like a reverse King Midas. He stays perfect on the outside
 
 ## The making of a narcissist
 
-There's a hinge point in the novel where it stops being conversational temptation and becomes lived corruption. The early chapters still feel like youth in spring, but only through Basil's eyes. He paints Dorian as unspoilt and redeemable, as if beauty itself is evidence. The tragedy is that the corruption is already spreading, almost as soon as Lord Henry starts speaking.
+The opening chapters are bright only in the way a room is bright before the smoke shows. Dorian looks unspoilt, but that is mostly Basil’s devotion talking. Basil treats beauty like proof of goodness. Lord Henry treats it like permission. And Dorian, almost at once, starts to tilt towards him.
 
 But even early on, there is a sinister tone. A looming, insidious evil you can sense growing within him. You see the first shattering of his innocence when his soul first detaches. A momentary fracture, and then the crack becomes a seam.
 
-Lord Henry is the catalyst, obviously. The devil on the shoulder. The snake in the garden. And Wilde basically tells you what influence really is.
+Lord Henry is the catalyst. The devil on the shoulder. The snake in the garden. And Wilde basically tells you what influence really is.
 
 <figure class="pull-quote">
   <blockquote>
