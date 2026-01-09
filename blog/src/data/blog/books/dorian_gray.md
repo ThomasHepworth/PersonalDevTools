@@ -8,6 +8,7 @@ slug: dorian-gray-reflections
 postCategory: resources
 featured: false
 draft: true
+unlisted: true
 tags:
   - book
   - book-reflection

@@ -10,7 +10,7 @@ import { SITE } from '@/config';
 import { POST_TAGS } from '@/constants';
 import IconHash from '@/assets/icons/IconHash.svg';
 
-const posts = (await getCollection('blog')).filter(postFilter);
+const posts = (await getCollection('blog')).filter(post => postFilter(post));
 
 const months = [
   'January','February','March','April','May','June',

@@ -1,7 +1,16 @@
 import type { CollectionEntry } from "astro:content";
 import { SITE } from "@/config";
 
-const postFilter = ({ data }: CollectionEntry<"blog">) => {
+export type PostFilterOptions = {
+  includeUnlisted?: boolean;
+};
+
+const postFilter = (
+  { data }: CollectionEntry<"blog">,
+  { includeUnlisted = false }: PostFilterOptions = {}
+) => {
+  if (data.unlisted && !includeUnlisted) return false;
+
   const isPublishTimePassed =
     Date.now() >
     new Date(data.pubDatetime).getTime() - SITE.scheduledPostMargin;
