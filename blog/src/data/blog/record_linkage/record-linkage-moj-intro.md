@@ -4,7 +4,7 @@ pubDatetime: 2026-01-12T10:00:00Z
 modDatetime: 2026-01-12T10:00:00Z
 title: "Record linkage at the Ministry of Justice: why we built Splink"
 slug: record-linkage-moj
-postCategory: software_engineering
+postCategory: 🔗 record linkage
 featured: true
 draft: false
 tags:
