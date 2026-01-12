@@ -19,7 +19,9 @@ const categories = Array.from(
 ).filter(Boolean).sort();
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const posts = (await getCollection("blog")).filter(postFilter);
+  const posts = (await getCollection("blog")).filter((entry) =>
+    postFilter(entry)
+  );
   return paginate(posts, {
     pageSize: 5, // Adjust the page size as needed
     params: {},
