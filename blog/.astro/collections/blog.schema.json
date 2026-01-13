@@ -87,6 +87,9 @@
         "hideEditPost": {
           "type": "boolean"
         },
+        "unlisted": {
+          "type": "boolean"
+        },
         "timezone": {
           "type": "string"
         },
