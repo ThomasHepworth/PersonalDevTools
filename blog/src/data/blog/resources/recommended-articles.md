@@ -5,6 +5,7 @@ modDatetime: 2025-12-23T10:00:00Z
 title: Must-Read Articles for Software Engineers
 slug: recommended-articles
 postCategory: resources
+unlisted: true
 featured: false
 draft: true
 tags:
