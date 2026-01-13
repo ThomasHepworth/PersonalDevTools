@@ -38,11 +38,11 @@ A light, off-feed update to keep the avocado saga from taking over the tech post
 </figure>
 
 <figure style="max-width: 520px; margin: 1.5rem auto 0;">
-  <figcaption>🌱 First sprout! - 01 Jun 2026</figcaption>
-  <img src="/assets/avo-01-06-2026-zoom-in.jpg" alt="Close-up of first avocado sprout" style="width: 100%; border-radius: 8px;" />
+  <figcaption>🌱 First sprout! - 06 Jan 2026</figcaption>
+  <img src="/assets/avo-06-01-2026-zoom-in.jpg" alt="Close-up of first avocado sprout" style="width: 100%; border-radius: 8px;" />
 </figure>
 
 <figure style="max-width: 520px; margin: 1.5rem auto 0;">
-  <figcaption>🌱 First sprout (wide) - 01 Jun 2026</figcaption>
-  <img src="/assets/avo-01-06-2026-zoom-out.jpg" alt="Potted avocado with first sprout, wider shot" style="width: 100%; border-radius: 8px;" />
+  <figcaption>🌱 First sprout (wide) - 06 Jan 2026</figcaption>
+  <img src="/assets/avo-06-01-2026-zoom-out.jpg" alt="Potted avocado with first sprout, wider shot" style="width: 100%; border-radius: 8px;" />
 </figure>
