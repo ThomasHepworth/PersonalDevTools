@@ -10,7 +10,9 @@ import { SITE } from '@/config';
 import { POST_TAGS } from '@/constants';
 import IconHash from '@/assets/icons/IconHash.svg';
 
-const posts = (await getCollection('blog')).filter(post => postFilter(post));
+const posts = (await getCollection('blog'))
+  .filter(post => postFilter(post))
+  .filter(post => !post.data.tags?.includes('book') && !post.id.startsWith('books/'));
 
 const months = [
   'January','February','March','April','May','June',
