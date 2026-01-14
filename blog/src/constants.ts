@@ -13,6 +13,7 @@ import IconGraduationCap from "@/assets/icons/IconGraduationCap.svg";
 import IconStar from "@/assets/icons/IconStar.svg";
 import IconBook from "@/assets/icons/IconBook.svg";
 import IconPalette from "@/assets/icons/IconPalette.svg";
+import IconLink from "@/assets/icons/IconLink.svg";
 import { SITE } from "@/config";
 
 export const SOCIALS = [
@@ -79,4 +80,5 @@ export const POST_TAGS = [
   { key: 'recommendations', label: 'Recommendations', icon: IconStar },
   { key: 'book-notes', label: 'Books', icon: IconBook },
   { key: 'art', label: 'Art', icon: IconPalette },
+  { key: 'record-linkage', label: 'Record Linkage', icon: IconLink },
 ] as const;
