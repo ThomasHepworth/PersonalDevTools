@@ -9,8 +9,8 @@ featured: true
 draft: false
 unlist: true
 tags:
-  - data-engineering
   - record-linkage
+  - data-engineering
   - splink
   - probabilistic-linkage
 description: Why deterministic linkage falls short in practice, how probabilistic methods address those limitations, and how those challenges led to Splink.
