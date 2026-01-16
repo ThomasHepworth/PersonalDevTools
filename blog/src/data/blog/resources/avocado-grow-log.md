@@ -46,3 +46,8 @@ A light, off-feed update to keep the avocado saga from taking over the tech post
   <figcaption>🌱 First sprout (wide) - 06 Jan 2026</figcaption>
   <img src="/assets/avo-06-01-2026-zoom-out.jpg" alt="Potted avocado with first sprout, wider shot" style="width: 100%; border-radius: 8px;" />
 </figure>
+
+<figure style="max-width: 520px; margin: 1.5rem auto 0;">
+  <figcaption>🌿 It grows!! - 15 Jan 2026</figcaption>
+  <img src="/assets/avo-15-01-2026.jpg" alt="Avocado plant growing taller" style="width: 100%; border-radius: 8px;" />
+</figure>
