@@ -29,7 +29,7 @@ description: My reflections on Fyodor Dostoevsky's "White Nights" and its explor
 
 # *White Nights*: loneliness, limerence, and the tragedy of the dreamer
 
-*White Nights* was my first foray into Dostoyevsky. I'm drawn to fiction that focusses on the make-up of a human being, the hidden machinery behind what we do, what we fear, what we justify. It is one of the few art forms that lets you stand inside another person's interior life. You do not just witness actions, but the rehearsals, the rationalisations, and the private stories that make a life feel coherent from the inside.
+*White Nights* was my first foray into Dostoyevsky. I'm drawn to fiction that focusses on the make-up of a human being, the obsessions and decisions behind what we do, our fears and justifications. It is one of the few art forms that lets you stand inside another person's interior life. You do not just witness actions, but the rehearsals, the rationalisations, the rumination, and the private stories that make a life feel coherent from the inside.
 
 Dostoyevsky is a master of this. *White Nights* is short and deceptively simple on the surface. It unfolds over a handful of nights and keeps close to a small cast, an unnamed narrator (the "Dreamer"), a young woman called Nastenka, her grandmother, and the lodger she hopes will return. Yet within that tight frame, Dostoyevsky builds a surprisingly modern study of urban loneliness, romantic projection, and the dangers of replacing reality with dreams.
 
@@ -48,7 +48,7 @@ What matters is not any one theme in isolation, but the way each one feeds the n
 
 ## A love story that begins before love
 
-The narrator's loneliness is not a backdrop. It is the catalyst for the plot. He lives in St Petersburg as a ghost among people, familiar with the city's rhythms but not part of its human fabric. In one of the story's funniest, bleakest lines, he admits:
+The narrator's loneliness is not a backdrop. It is the catalyst for the plot. He lives in St Petersburg as a ghost among people, familiar with the city's seams but not part of its human fabric. Dostoyevsky captures this with characteristic dark comedy:
 
 <figure class="pull-quote">
   <blockquote>
