@@ -2,7 +2,7 @@
 author: Tom Hepworth
 pubDatetime: 2026-01-12T10:00:00Z
 modDatetime: 2026-01-12T10:00:00Z
-title: "Deterministic vs probabilistic record linkage: why Splink exists"
+title: "Deterministic vs Probabilistic Record Linkage"
 slug: deterministic-vs-probabilistic-linkage
 postCategory: 🔗 record linkage
 featured: true
@@ -11,23 +11,14 @@ unlist: true
 tags:
   - record-linkage
   - data-engineering
-  - splink
   - probabilistic-linkage
-description: Why deterministic linkage falls short in practice, how probabilistic methods address those limitations, and how those challenges led to Splink.
-ogImage: "https://user-images.githubusercontent.com/7570107/85285114-3969ac00-b488-11ea-88ff-5fca1b34af1f.png"
+description: Why deterministic linkage falls short in practice, how probabilistic methods address those limitations, and when to use each approach.
+ogImage: "/assets/record-linkage/deterministic-failure-example.svg"
 ---
-
-<figure class="flex justify-center">
-  <img
-    src="https://user-images.githubusercontent.com/7570107/85285114-3969ac00-b488-11ea-88ff-5fca1b34af1f.png"
-    alt="Splink logo"
-    class="w-1/2 max-w-full h-auto"
-  />
-</figure>
 
 # Deterministic vs probabilistic record linkage
 
-This post introduces record linkage, explains why deterministic approaches often fall short in practice, and how those challenges led to the creation of Splink.
+This post introduces record linkage, compares deterministic and probabilistic approaches, and explains when each method makes sense.
 
 ## Why record linkage matters
 
@@ -83,51 +74,54 @@ This matters because it is more robust to imperfect data and gives you a structu
 
 The statistical foundations come from the Fellegi-Sunter framework, developed in the 1960s.[^2][^3] The core idea is that each comparison (name, date of birth, address, etc.) provides evidence for or against a match. Fields that agree on rare values provide stronger evidence than fields that agree on common values. The model combines these signals into an overall match weight or probability.
 
-## Splink as a response
+## Choosing an approach
 
-These challenges, the brittleness of deterministic linkage and the need for scalable probabilistic methods, are what led to the creation of Splink. Splink is a scalable entity resolution and record linkage library written in Python. It provides an API for deduplicating datasets and linking between two or more datasets, while pushing heavy computation down into high-performance database engines such as DuckDB, Spark and AWS Athena.
+So when should you use each method?
 
-Under the hood, Splink implements a probabilistic linkage model closely related to the Fellegi-Sunter framework.[^2][^3] Rather than forcing every pair into "match" or "no match", it estimates how likely it is that two records refer to the same entity based on the evidence from each comparison.
+**Deterministic linkage** works well when:
 
-Splink's statistical specification is similar in spirit to the R `fastLink` package, which is accompanied by an academic paper describing the model and its practical use at scale.[^4] The Splink documentation and a series of interactive articles explore the theory behind probabilistic linkage and how it relates to Splink.[^5]
+- Data quality is high and identifiers are reliable
+- You have unique, stable keys (e.g. national ID numbers)
+- Precision matters more than recall
+- Computational simplicity is a priority
 
-Where Splink differs from many "model-only" implementations is in how it is engineered for real-world use. The library translates your linkage configuration into SQL that runs inside the chosen backend, keeping Python as the orchestration layer while relying on mature database engines for heavy computation. Internally, Splink uses abstract base classes to define the core contract of a "linker", making it straightforward to support multiple SQL backends while keeping the user-facing API consistent.
+**Probabilistic linkage** is better suited when:
 
-That design has allowed Splink to run on DuckDB, PySpark, Athena, SQLite, and Postgres. In practice, this flexibility lets teams slot linkage into their existing data platform rather than building infrastructure around it.
+- Data quality is variable or uncertain
+- You need to link across systems with inconsistent recording practices
+- Recall matters—you cannot afford to miss true matches
+- You need to quantify and communicate uncertainty
+- The population includes groups vulnerable to inconsistent data capture
+
+In practice, many linkage pipelines use both. A deterministic pass can quickly resolve high-confidence matches on strong identifiers, while a probabilistic model handles the remainder. This hybrid approach balances efficiency with robustness.
+
+Several open-source tools implement probabilistic linkage at scale, including [Splink](https://github.com/moj-analytical-services/splink) (Python), [fastLink](https://github.com/kosukeimai/fastLink) (R), and [Dedupe](https://github.com/dedupeio/dedupe) (Python). Each has different strengths depending on your scale, backend, and workflow.
 
 ## References
 
-[^1]: Splink blog post on bias in data linking, including naming inconsistencies and downstream impacts: https://moj-analytical-services.github.io/splink/blog/2024/08/19/bias-in-data-linking.html
+[^1]: Blog post on bias in data linking, including naming inconsistencies and downstream impacts: https://moj-analytical-services.github.io/splink/blog/2024/08/19/bias-in-data-linking.html
 [^2]: Robin Linacre's interactive introduction to probabilistic record linkage: https://www.robinlinacre.com/intro_to_probabilistic_linkage/
 [^3]: Robin Linacre's explanation of the mathematics behind the Fellegi-Sunter model: https://www.robinlinacre.com/maths_of_fellegi_sunter/
-[^4]: Enamorado, Fifield, and Imai, "A fast and accurate approach to record linkage and de-duplication": https://imai.fas.harvard.edu/research/files/linkage.pdf
-[^5]: Splink documentation, including theory guides and interactive material on record linkage and the Fellegi-Sunter model: https://moj-analytical-services.github.io/splink/topic_guides/theory/record_linkage.html
 
 ---
 
 ## Further reading
 
-If you want to go deeper on record linkage and Splink:
+If you want to go deeper on record linkage:
 
-**Splink documentation**
-- [Splink on GitHub](https://github.com/moj-analytical-services/splink)
-- [Theory guide: Record linkage](https://moj-analytical-services.github.io/splink/topic_guides/theory/record_linkage.html)
-- [Theory guide: Fellegi-Sunter model](https://moj-analytical-services.github.io/splink/topic_guides/theory/fellegi_sunter.html)
-- [Theory guide: Probabilistic vs deterministic linkage](https://moj-analytical-services.github.io/splink/topic_guides/theory/probabilistic_vs_deterministic.html)
+**Interactive articles**
+- [Introduction to probabilistic linkage](https://www.robinlinacre.com/intro_to_probabilistic_linkage/) - Robin Linacre
+- [The mathematics of Fellegi-Sunter](https://www.robinlinacre.com/maths_of_fellegi_sunter/) - Robin Linacre
 
-**Interactive articles by Robin Linacre**
-- [Introduction to probabilistic linkage](https://www.robinlinacre.com/intro_to_probabilistic_linkage/)
-- [The mathematics of Fellegi-Sunter](https://www.robinlinacre.com/maths_of_fellegi_sunter/)
+**Theory guides**
+- [Record linkage fundamentals](https://moj-analytical-services.github.io/splink/topic_guides/theory/record_linkage.html)
+- [Fellegi-Sunter model explained](https://moj-analytical-services.github.io/splink/topic_guides/theory/fellegi_sunter.html)
+- [Probabilistic vs deterministic linkage](https://moj-analytical-services.github.io/splink/topic_guides/theory/probabilistic_vs_deterministic.html)
 
 **Academic papers**
 - [Enamorado, Fifield, and Imai - "A fast and accurate approach to record linkage and de-duplication"](https://imai.fas.harvard.edu/research/files/linkage.pdf)
 
----
-
-## References
-
-[^1]: Splink blog post on bias in data linking: https://moj-analytical-services.github.io/splink/blog/2024/08/19/bias-in-data-linking.html
-[^2]: Robin Linacre, Introduction to probabilistic record linkage: https://www.robinlinacre.com/intro_to_probabilistic_linkage/
-[^3]: Robin Linacre, Mathematics of Fellegi-Sunter: https://www.robinlinacre.com/maths_of_fellegi_sunter/
-[^4]: Enamorado, Fifield, and Imai, "A fast and accurate approach to record linkage and de-duplication": https://imai.fas.harvard.edu/research/files/linkage.pdf
-[^5]: Splink documentation: https://moj-analytical-services.github.io/splink/topic_guides/theory/record_linkage.html
+**Open-source tools**
+- [Splink](https://github.com/moj-analytical-services/splink) - Python, scalable probabilistic linkage
+- [fastLink](https://github.com/kosukeimai/fastLink) - R implementation
+- [Dedupe](https://github.com/dedupeio/dedupe) - Python, machine learning approach
