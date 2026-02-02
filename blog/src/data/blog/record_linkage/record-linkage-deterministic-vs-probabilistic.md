@@ -89,13 +89,14 @@ So when should you use each method?
 
 - Data quality is variable or uncertain
 - You need to link across systems with inconsistent recording practices
-- Recall matters—you cannot afford to miss true matches
+- Recall matters - you want to capture as many true matches as possible and can tolerate some false positives
 - You need to quantify and communicate uncertainty
 - The population includes groups vulnerable to inconsistent data capture
 
 In practice, many linkage pipelines use both. A deterministic pass can quickly resolve high-confidence matches on strong identifiers, while a probabilistic model handles the remainder. This hybrid approach balances efficiency with robustness.
 
-Several open-source tools implement probabilistic linkage at scale, including [Splink](https://github.com/moj-analytical-services/splink) (Python), [fastLink](https://github.com/kosukeimai/fastLink) (R), and [Dedupe](https://github.com/dedupeio/dedupe) (Python). Each has different strengths depending on your scale, backend, and workflow.
+[Splink](https://github.com/moj-analytical-services/splink) offers an open-source implementation of probabilistic record linkage designed to scale to large datasets. It includes tools for blocking, comparison, model training, and result analysis, making it easier to implement probabilistic linkage in practice.
+
 
 ## References
 
