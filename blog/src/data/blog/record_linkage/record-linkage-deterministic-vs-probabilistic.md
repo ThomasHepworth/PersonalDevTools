@@ -13,7 +13,7 @@ tags:
   - data-engineering
   - probabilistic-linkage
 description: Why deterministic linkage falls short in practice, how probabilistic methods address those limitations, and when to use each approach.
-ogImage: "/assets/record-linkage/deterministic-failure-example.svg"
+ogImage: "https://raw.githubusercontent.com/moj-analytical-services/splink/master/docs/img/README/what_does_splink_do_1.drawio.png"
 ---
 
 # Deterministic vs probabilistic record linkage
