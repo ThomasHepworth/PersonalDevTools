@@ -1,7 +1,7 @@
 ---
 author: Tom Hepworth
 pubDatetime: 2026-01-12T12:15:00Z
-modDatetime: 2026-01-12T12:15:00Z
+modDatetime: 2026-03-04T12:00:00Z
 title: "A tiny avocado grow log 🥑"
 slug: avocado-grow-log
 postCategory: life
@@ -50,4 +50,14 @@ A light, off-feed update to keep the avocado saga from taking over the tech post
 <figure style="max-width: 520px; margin: 1.5rem auto 0;">
   <figcaption>🌿 It grows!! - 15 Jan 2026</figcaption>
   <img src="/assets/avo-15-01-2026.jpg" alt="Avocado plant growing taller" style="width: 100%; border-radius: 8px;" />
+</figure>
+
+<figure style="max-width: 520px; margin: 1.5rem auto 0;">
+  <figcaption>🌳 Giant stalk emerging - 08 Feb 2026</figcaption>
+  <img src="/assets/avo-08-02-2026.jpg" alt="Avocado plant with tall stalk emerging" style="width: 100%; border-radius: 8px;" />
+</figure>
+
+<figure style="max-width: 520px; margin: 1.5rem auto 0;">
+  <figcaption>🪴 Taking shape! - 01 Mar 2026</figcaption>
+  <img src="/assets/avo-01-03-2026.jpg" alt="Avocado plant finally taking shape with giant stalk" style="width: 100%; border-radius: 8px;" />
 </figure>
