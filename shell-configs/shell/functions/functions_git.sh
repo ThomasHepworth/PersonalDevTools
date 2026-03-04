@@ -267,8 +267,15 @@ function get_git_url() {
     # Convert SSH to HTTPS for common providers (GitHub, GitLab, Bitbucket, etc.)
     local https_url="$remote_url"
     if [[ $remote_url =~ ^git@([^:]+):(.+)$ ]]; then
-        local host="${BASH_REMATCH[1]}"
-        local path="${BASH_REMATCH[2]}"
+        local host path
+        # zsh uses $match array, bash uses $BASH_REMATCH
+        if [[ -n "${BASH_REMATCH[1]:-}" ]]; then
+            host="${BASH_REMATCH[1]}"
+            path="${BASH_REMATCH[2]}"
+        else
+            host="${match[1]}"
+            path="${match[2]}"
+        fi
         https_url="https://${host}/${path}"
     fi
 
@@ -281,7 +288,7 @@ function get_git_url() {
             # Windows Subsystem for Linux
             wslview "$https_url" 2>/dev/null || explorer.exe "$https_url"
         elif [[ "$OSTYPE" == "darwin"* ]]; then
-            open "$https_url"
+            /usr/bin/open "$https_url"
         elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
             # Git Bash / Cygwin on Windows
             cmd.exe /c start "" "$https_url" 2>/dev/null
