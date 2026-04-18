@@ -99,25 +99,25 @@ const nextPost =
   >
     <h1
       transition:name={slugifyStr(title)}
-      class="inline-block text-2xl font-bold text-accent sm:text-3xl"
+      class="inline-block text-3xl font-extrabold text-accent sm:text-4xl tracking-tight mb-4"
     >
       {title}
     </h1>
     {draft && (
-      <div class="mt-3 flex items-center gap-2 rounded-lg border border-orange-200 bg-orange-50 px-3 py-2 text-sm text-orange-800">
-        <span class="inline-flex h-2 w-2 rounded-full bg-orange-500"></span>
+      <div class="mt-3 flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/10 px-3 py-2 text-sm text-accent">
+        <span class="inline-flex h-2 w-2 rounded-full bg-accent"></span>
         This post is a draft. Expect rough edges and updates.
       </div>
     )}
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4 border-b border-border pb-6">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" class="my-2" />
       <EditPost class="max-sm:hidden" {hideEditPost} {post} />
     </div>
-    <article id="article" class="mx-auto prose mt-8 max-w-3xl">
+    <article id="article" class="mx-auto prose mt-10 max-w-3xl">
       <Content />
     </article>
 
-    <hr class="my-8 border-dashed" />
+    <hr class="my-12 border-dashed" />
 
     <EditPost class="sm:hidden" {hideEditPost} {post} />
 
@@ -127,20 +127,20 @@ const nextPost =
       <ShareLinks />
     </div>
 
-    <hr class="my-6 border-dashed" />
+    <hr class="my-10 border-dashed" />
 
     <!-- Previous/Next Post Buttons -->
-    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
       {
         prevPost && (
           <a
             href={prevPost.path}
-            class="flex w-full gap-1 hover:opacity-75"
+            class="group flex w-full gap-2 rounded-lg border border-border p-4 transition-all hover:border-accent hover:bg-muted/30"
           >
-            <IconChevronLeft class="inline-block flex-none" />
+            <IconChevronLeft class="inline-block flex-none mt-1 transition-transform group-hover:-translate-x-1" />
             <div>
-              <span>Previous Post</span>
-              <div class="text-sm text-accent/85">{prevPost.title}</div>
+              <span class="text-xs uppercase tracking-wider text-foreground/60">Previous</span>
+              <div class="text-base font-medium text-accent mt-0.5">{prevPost.title}</div>
             </div>
           </a>
         )
@@ -149,13 +149,13 @@ const nextPost =
         nextPost && (
           <a
             href={nextPost.path}
-            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
+            class="group flex w-full justify-end gap-2 rounded-lg border border-border p-4 text-right transition-all hover:border-accent hover:bg-muted/30 sm:col-start-2"
           >
             <div>
-              <span>Next Post</span>
-              <div class="text-sm text-accent/85">{nextPost.title}</div>
+              <span class="text-xs uppercase tracking-wider text-foreground/60">Next</span>
+              <div class="text-base font-medium text-accent mt-0.5">{nextPost.title}</div>
             </div>
-            <IconChevronRight class="inline-block flex-none" />
+            <IconChevronRight class="inline-block flex-none mt-1 transition-transform group-hover:translate-x-1" />
           </a>
         )
       }

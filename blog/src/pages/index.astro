@@ -10,64 +10,79 @@ import { SITE } from "@/config";
 const posts = await getCollection("blog");
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured).slice(0, 3);
+const highlightPosts = featuredPosts.length > 0 ? featuredPosts : sortedPosts.slice(0, 3);
+const highlightLabel = featuredPosts.length > 0 ? "Featured" : "Latest posts";
+
+const ctas = [
+  { href: "/posts", title: "Posts", blurb: "Long-form writing", primary: true },
+  { href: "/books", title: "Books", blurb: "Notes & reflections" },
+  { href: "/snippets", title: "Snippets", blurb: "Quick thoughts & links" },
+  { href: "/about", title: "About", blurb: "Who I am" },
+];
 ---
 
 <Layout>
   <Header />
-  <main id="main-content" class="mx-auto w-full max-w-3xl px-4" data-layout="index">
-    <!-- Compact hero -->
-    <section class="pt-12 pb-8 text-center">
-      <p class="text-foreground/80 mb-2 max-w-lg mx-auto">
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 sm:px-6" data-layout="index">
+    <!-- Hero -->
+    <section class="pt-16 pb-12 sm:pt-20 sm:pb-16 text-center">
+      <h1 class="sr-only">{SITE.title}</h1>
+      <p class="text-foreground/90 mb-3 max-w-xl mx-auto text-lg leading-relaxed">
         I'm Tom, a data linker (formerly a data engineer) writing about record linkage,
         software design, and whatever else catches my interest.
       </p>
-      <p class="text-foreground/60 mb-8 max-w-lg mx-auto text-sm">
-        Browse the posts, dip into my book reflections and notes, learn more about me, or check out Snippets for quick finds.
+      <p class="text-foreground/60 mb-10 max-w-xl mx-auto text-sm">
+        Browse the posts, dip into my book reflections, or check out Snippets for quick finds.
       </p>
 
-      <!-- Big CTA buttons -->
-      <div class="flex justify-center gap-4 flex-wrap">
-        <a
-          href="/posts"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border font-medium hover:bg-muted/50 transition-colors"
-        >
-          Posts
-        </a>
-        <a
-          href="/books"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border font-medium hover:bg-muted/50 transition-colors"
-        >
-          Books
-        </a>
-        <a
-          href="/snippets"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border font-medium hover:bg-muted/50 transition-colors"
-        >
-          Snippets
-        </a>
-        <a
-          href="/about"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border font-medium hover:bg-muted/50 transition-colors"
-        >
-          About
-        </a>
+      <!-- CTAs -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto">
+        {ctas.map(cta => (
+          <a
+            href={cta.href}
+            class:list={[
+              "group flex flex-col items-center sm:items-start gap-1 rounded-lg px-5 py-4 text-left transition-all duration-200",
+              cta.primary
+                ? "bg-accent text-background border border-accent hover:shadow-md hover:-translate-y-0.5"
+                : "border border-border hover:border-accent hover:bg-muted/40 hover:-translate-y-0.5",
+            ]}
+          >
+            <span class:list={[
+              "font-semibold text-base",
+              cta.primary ? "text-background" : "group-hover:text-accent",
+            ]}>
+              {cta.title} <span class="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+            </span>
+            <span class:list={[
+              "text-xs",
+              cta.primary ? "text-background/80" : "text-foreground/60",
+            ]}>
+              {cta.blurb}
+            </span>
+          </a>
+        ))}
       </div>
     </section>
 
-    <!-- Featured posts (if any) -->
-    {featuredPosts.length > 0 && (
-      <section class="pt-8 pb-12">
-        <h2 class="text-lg font-semibold text-foreground/70 mb-4 text-center">Featured</h2>
-        <ul class="space-y-4">
-          {featuredPosts.map(entry => (
-            <li class="border border-border rounded-lg p-4 hover:bg-muted/30 transition-colors">
+    <!-- Highlight section (featured or latest) -->
+    {highlightPosts.length > 0 && (
+      <section class="pt-8 pb-16">
+        <div class="flex items-baseline justify-between mb-6">
+          <h2 class="text-sm font-bold uppercase tracking-wider text-accent">{highlightLabel}</h2>
+          <a href="/posts" class="text-xs text-foreground/60 hover:text-accent transition-colors">
+            View all →
+          </a>
+        </div>
+        <ul class="space-y-5">
+          {highlightPosts.map(entry => (
+            <li class="border-l-4 border-accent pl-4 py-1 transition-all hover:pl-5">
               <a
                 href={getPath(entry.id, entry.filePath)}
-                class="block text-lg font-medium text-accent decoration-dashed underline-offset-4 hover:underline"
+                class="block text-lg font-semibold text-accent decoration-dashed underline-offset-4 hover:underline"
               >
                 {entry.data.title}
               </a>
-              <p class="text-foreground/70 mt-1 text-sm">{entry.data.description}</p>
+              <p class="text-foreground/70 mt-1 text-sm leading-relaxed">{entry.data.description}</p>
             </li>
           ))}
         </ul>

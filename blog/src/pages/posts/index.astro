@@ -42,18 +42,20 @@ function getPostIcon(tags: string[]) {
 <Layout title={`Posts | ${SITE.title}`}>
   <Header />
 
-  <main class="mx-auto max-w-3xl px-4">
-    <h1 class="text-4xl font-extrabold mb-1">Posts</h1>
-    <p class="text-gray-500 mb-6">All the articles I’ve posted, newest first.</p>
+  <main class="mx-auto max-w-3xl px-4 sm:px-6 pb-16">
+    <header class="pt-4 mb-8">
+      <h1 class="text-4xl font-extrabold mb-2">Posts</h1>
+      <p class="text-foreground/60">Deep dives on data, code, and design — newest first.</p>
+    </header>
 
     <!-- Tag filters -->
     <div class="mb-6">
       <div class="flex flex-wrap gap-2" id="tag-filters">
-        <button data-filter="all" class="filter-btn active inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent text-white text-sm">All</button>
+        <button data-filter="all" class="filter-btn active inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent text-background text-sm transition-colors">All</button>
         {availableTags.map(tag => {
           const TagIcon = tag.icon;
           return (
-            <button data-filter={tag.key} class="filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-sm hover:bg-accent hover:text-white transition-colors">
+            <button data-filter={tag.key} class="filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-sm hover:bg-accent hover:text-background hover:border-accent transition-colors">
               <TagIcon class="w-4 h-4" />
               {tag.label}
             </button>
@@ -70,9 +72,9 @@ function getPostIcon(tags: string[]) {
       )
         .sort(([a], [b]) => +b - +a)             /* newest year first */
         .map(([year, yearGroup]) => (
-          <section class="pb-14 border-b border-border first:pt-0 pt-6">
+          <section class="pb-14 border-b border-border last:border-b-0 first:pt-0 pt-8">
 
-            <h2 class="text-3xl font-bold mb-8 lg:sticky lg:-left-4 lg:pr-4">
+            <h2 class="text-3xl font-extrabold mb-8 tracking-tight">
               {year}
             </h2>
 
@@ -84,13 +86,13 @@ function getPostIcon(tags: string[]) {
             )
               .sort(([a], [b]) => +b - +a)        /* newest month first */
               .map(([month, monthGroup]) => (
-                <article class="mb-10 grid grid-cols-[8rem_1fr] gap-4">
+                <article class="mb-12 grid grid-cols-[4rem_1fr] sm:grid-cols-[8rem_1fr] gap-4">
 
                   <!-- month label -->
-                  <h3 class="font-semibold">{months[+month - 1]}</h3>
+                  <h3 class="font-semibold text-foreground/70 text-sm sm:text-base uppercase sm:normal-case tracking-wider sm:tracking-normal">{months[+month - 1]}</h3>
 
                   <!-- posts with individual icons -->
-                  <ul class="space-y-6">
+                  <ul class="space-y-8">
                         {monthGroup
                       .sort(
                         (a, b) =>
@@ -100,24 +102,24 @@ function getPostIcon(tags: string[]) {
                         .map(entry => {
                           const PostIcon = getPostIcon(entry.data.tags || []);
                           return (
-                        <li class="relative pl-6" data-tags={(entry.data.tags || []).join(',')}>
+                        <li class="group relative pl-6 transition-all" data-tags={(entry.data.tags || []).join(',')}>
                           <!-- icon for this post -->
-                          <span class="absolute -left-[1.875rem] top-[0.15rem] flex items-center justify-center w-5 h-5 rounded-full bg-muted/50 z-10">
+                          <span class="absolute -left-[1.875rem] top-[0.2rem] flex items-center justify-center w-6 h-6 rounded-full bg-muted border border-border z-10 transition-colors group-hover:border-accent">
                             <PostIcon class="w-3.5 h-3.5 text-accent" />
                           </span>
 
                           <a
                             href={getPath(entry.id, entry.filePath)}
-                            class="block text-lg font-medium text-accent decoration-dashed underline-offset-4 hover:underline"
+                            class="block text-lg font-semibold text-accent decoration-dashed underline-offset-4 hover:underline"
                           >
                             {entry.data.title}
                           </a>
                           {entry.data.draft && (
-                            <span class="ml-2 inline-flex items-center rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold uppercase text-orange-700">
+                            <span class="ml-2 inline-flex items-center rounded-full bg-accent/10 px-2 py-0.5 text-xs font-semibold uppercase text-accent">
                               Draft
                             </span>
                           )}
-                          <p class="text-foreground/70 mt-1">{entry.data.description}</p>
+                          <p class="text-foreground/70 mt-1.5 leading-relaxed">{entry.data.description}</p>
                         </li>
                       );
                       })}

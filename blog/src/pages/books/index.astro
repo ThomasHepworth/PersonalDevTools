@@ -29,18 +29,20 @@ function getBookType(tags: string[] = []) {
 <Layout title={`Books | ${SITE.title}`}>
   <Header />
 
-  <main class="mx-auto max-w-3xl px-4 pb-12">
-    <h1 class="text-4xl font-extrabold mb-1">Books</h1>
-    <p class="text-foreground/60 mb-8 max-w-2xl">
-      A mixture of notes and reflections from books that I have read.
-    </p>
+  <main class="mx-auto max-w-3xl px-4 sm:px-6 pb-16">
+    <header class="pt-4 mb-10">
+      <h1 class="text-4xl font-extrabold mb-2">Books</h1>
+      <p class="text-foreground/60 max-w-2xl">
+        Notes and reflections from my reading.
+      </p>
+    </header>
 
     {books.length > 0 ? (
-      <ul class="space-y-4">
+      <ul class="space-y-5">
         {books.map((book) => (
-          <li class="border border-border rounded-lg p-4 hover:bg-muted/30 transition-colors">
-            <div class="flex items-start justify-between gap-3 mb-2">
-              <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold rounded-full bg-muted/60 text-foreground/80">
+          <li class="group border border-border border-l-4 border-l-accent rounded-lg p-5 transition-all duration-200 hover:border-accent hover:bg-muted/30 hover:shadow-sm">
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="inline-flex items-center gap-2 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider rounded-full bg-accent/10 text-accent">
                 {getBookType(book.data.tags)}
               </span>
               <time
@@ -52,16 +54,16 @@ function getBookType(tags: string[] = []) {
             </div>
             <a
               href={getPath(book.id, book.filePath)}
-              class="block text-lg font-medium text-accent decoration-dashed underline-offset-4 hover:underline"
+              class="block text-xl font-semibold text-accent decoration-dashed underline-offset-4 group-hover:underline"
             >
               {book.data.title}
             </a>
             {book.data.draft && (
-              <span class="mt-1 inline-flex items-center rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold uppercase text-orange-700">
+              <span class="mt-1 inline-flex items-center rounded-full bg-accent/10 px-2 py-0.5 text-xs font-semibold uppercase text-accent">
                 Draft
               </span>
             )}
-            <p class="text-foreground/70 mt-1 text-sm">{book.data.description}</p>
+            <p class="text-foreground/70 mt-2 leading-relaxed">{book.data.description}</p>
           </li>
         ))}
       </ul>

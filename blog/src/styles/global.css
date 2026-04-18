@@ -5,19 +5,19 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #f9f9f9; /* Light gray background */
-  --foreground: #333333; /* Dark gray text */
-  --accent: #555555; /* Medium gray accent */
-  --muted: #e0e0e0; /* Very light gray muted */
-  --border: #cccccc; /* Light gray border */
+  --background: #fafafa; /* Clean off-white */
+  --foreground: #171717; /* Near-black for strong contrast */
+  --accent: #0f766e;     /* Teal — calm, distinctive, readable */
+  --muted: #f0f0f0;      /* Light gray for cards / chips */
+  --border: #d4d4d4;     /* Soft gray border */
 }
 
 html[data-theme="dark"] {
-  --background: #0d1117; /* Deep dark blue-black (GitHub dark) */
-  --foreground: #e6edf3; /* Soft white text */
-  --accent: #bd93f9; /* Dracula purple - friendly pop of color */
-  --muted: #161b22; /* Slightly lighter dark for cards */
-  --border: #30363d; /* Subtle border */
+  --background: #1a1b26; /* Tokyo Night base — softer than pure black */
+  --foreground: #c0caf5; /* Cool off-white text */
+  --accent: #bb9af7;     /* Muted Dracula-style purple, easier on the eyes */
+  --muted: #24283b;      /* Card / chip background */
+  --border: #414868;     /* Visible without being loud */
 }
 
 @theme inline {
@@ -50,7 +50,10 @@ html[data-theme="dark"] {
   }
   section,
   footer {
-    @apply mx-auto max-w-3xl px-4;
+    @apply mx-auto max-w-3xl px-4 sm:px-6;
+  }
+  :is(a, button, [role="button"]):focus-visible {
+    @apply rounded-sm outline-2 outline-offset-2 outline-accent;
   }
 }
 
@@ -66,17 +69,23 @@ html[data-theme="dark"] {
 }
 
 .active-nav {
-  @apply underline decoration-wavy decoration-2 underline-offset-4;
+  @apply text-accent font-semibold underline decoration-accent decoration-2 underline-offset-[6px];
 }
 
 .top-bar-title {
   font-family: 'Fira Code', monospace;
-  background-color: #2a2a2a;
-  color: #f4f4f4;
-  padding: 0.25rem 0.5rem;
+  background-color: var(--muted);
+  color: var(--foreground);
+  padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  border: 1px solid #444;
+  border: 1px solid var(--border);
   white-space: nowrap;
   text-overflow: ellipsis;
   display: inline-block;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.top-bar-title:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
