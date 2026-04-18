@@ -2,8 +2,8 @@
 FROM node:lts-alpine AS builder
 WORKDIR /app
 
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Install pnpm (pinned version; avoids flaky corepack registry lookups)
+RUN npm install -g pnpm@9
 
 # Copy & install dependencies
 COPY package.json pnpm-lock.yaml ./

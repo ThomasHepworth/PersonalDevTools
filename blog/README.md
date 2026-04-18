@@ -65,6 +65,26 @@ pnpm run build
 pnpm run preview
 ```
 
+## Run with Docker
+The repo includes a multi-stage [Dockerfile](Dockerfile) (builds with `pnpm`, serves the static `dist/` with Nginx) and a small [docker-compose.yml](docker-compose.yml) wrapper.
+
+Using Docker Compose (easiest):
+```bash
+docker compose up --build
+```
+Then open http://localhost.
+
+Using Docker directly:
+```bash
+docker build -t tomhepworth-blog .
+docker run --rm -p 8080:80 tomhepworth-blog
+```
+Then open http://localhost:8080.
+
+Notes:
+- The image is a production build — it won't hot-reload. For local editing, use `pnpm run dev` instead.
+- Rebuild the image (`--build` or `docker build` again) whenever content or code changes.
+
 ## Deployment
 - Deployment is handled by the GitHub Actions workflow at `.github/workflows/deploy.yml` and publishes to GitHub Pages. If you rename the default branch, double-check that workflow and GitHub Pages settings.
 
